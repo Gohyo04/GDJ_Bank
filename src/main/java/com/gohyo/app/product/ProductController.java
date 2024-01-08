@@ -29,10 +29,11 @@ public class ProductController {
 	@RequestMapping(value="detail", method = RequestMethod.GET)
 	public ModelAndView detail(ProductDTO pdto) {
 		ModelAndView mv = new ModelAndView();
+		pdto.setProductNum(pdto.getProductNum());
 		pdto = productService.getDetail(pdto);
 		
 		mv.addObject("dto",pdto);
-		mv.setViewName("product/detail");
+		mv.setViewName("products/detail");
 		return mv;
 	}
 }

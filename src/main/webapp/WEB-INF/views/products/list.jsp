@@ -25,7 +25,7 @@
 			<c:forEach items="${requestScope.list}" var="dto">
 				<tr>
 					<td>${dto.productNum}</td>
-					<td class="col-6"><a href="./detail?no=${dto.productNum}">${dto.productName}</a></td>
+					<td class="col-6"><a href="./detail?productNum=${dto.productNum}">${dto.productName}</a></td>
 					<td>${dto.productRate}</td>
 					<td>${dto.productJumsu}</td>
 				</tr>

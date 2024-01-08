@@ -14,10 +14,10 @@
 	    <section class="container-fluid">
     	<div>
 	    	<c:if test="${dto != null}">
-	    		<h3>${dto.no}</h3>
-	    		<div>${dto.title}</div>
-	    		<div>${dto.writer}</div>
-	    		<div>${dto.day}</div>
+	    		<h3>${dto.productNum}</h3>
+	    		<div>${dto.productName}</div>
+	    		<div>${dto.productRate}</div>
+	    		<div>${dto.productJumsu}</div>
 	    	</c:if>
 	    	<c:if test="${empty dto}">
 	    		<h3>없는 번호 입니다.</h3>

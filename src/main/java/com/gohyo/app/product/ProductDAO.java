@@ -21,7 +21,7 @@ public class ProductDAO {
 	}
 	
 	public ProductDTO getDetail(ProductDTO productDTO) {
-		return sqlSession.selectOne(namespace+"getDetail");
+		return sqlSession.selectOne(namespace+"getDetail",productDTO);
 	}
 		
 	public int doAdd(ProductDTO productDTO) {
