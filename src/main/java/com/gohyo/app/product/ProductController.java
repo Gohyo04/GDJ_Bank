@@ -36,4 +36,23 @@ public class ProductController {
 		mv.setViewName("products/detail");
 		return mv;
 	}
+	
+	@RequestMapping(value="add", method = RequestMethod.GET)
+	public String add() {
+		return "products/add";
+	}
+	
+	@RequestMapping(value="add", method = RequestMethod.POST)
+	public ModelAndView add(ProductDTO pdto, ModelAndView mv) {
+		int result = productService.add(pdto);
+		String msg = "실패";
+		if(result > 0) {
+			msg = "성공";
+		}
+		
+		mv.addObject("add", pdto);
+		mv.setViewName("products/list");
+		
+		return mv;
+	}
 }

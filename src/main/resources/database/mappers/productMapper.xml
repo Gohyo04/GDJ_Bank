@@ -21,4 +21,14 @@
   	<select id="getDetail" resultType="ProductDTO" parameterType="ProductDTO">
   		SELECT * FROM PRODUCT WHERE PRODUCTNUM = #{productNum}
   	</select>
+  	
+  	<insert id="add" parameterType="ProductDTO">
+  		INSERT INTO PRODUCT 
+  		VALUES(
+  			NO_PK.NEXTVAL,
+  			#{productName},
+  			#{productContents},
+  			#{productRate},
+  			#{productJumsu});
+  	</insert>
   </mapper>
