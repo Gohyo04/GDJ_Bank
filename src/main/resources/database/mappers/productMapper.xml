@@ -6,6 +6,11 @@
   
   <!-- mapper namespace는 비우면 에러 -->
   <mapper namespace="com.gohyo.app.product.ProductDAO">
+  
+  	<select id="getTotal" resultType="java.lang.Long">
+		SELECT COUNT(PRODUCTNUM) FROM PRODUCT   	
+	</select>
+  
   	<select id="getList" resultType="ProductDTO" parameterType="Pager">
   		SELECT * FROM
 			(
@@ -29,6 +34,6 @@
   			#{productName},
   			#{productContents},
   			#{productRate},
-  			#{productJumsu});
+  			#{productJumsu})
   	</insert>
   </mapper>

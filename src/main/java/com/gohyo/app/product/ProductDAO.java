@@ -20,11 +20,15 @@ public class ProductDAO {
 		return sqlSession.selectList(namespace+"getList", pager);
 	}
 	
+	public Long getTotal(Pager pager) {
+		return sqlSession.selectOne(namespace+"getTotal",pager);
+	}
+	
 	public ProductDTO getDetail(ProductDTO productDTO) {
 		return sqlSession.selectOne(namespace+"getDetail",productDTO);
 	}
 		
-	public int doAdd(ProductDTO productDTO) {	
+	public int add(ProductDTO productDTO) {	
 		return sqlSession.insert(namespace+"add","productDTO");
 	}
 	

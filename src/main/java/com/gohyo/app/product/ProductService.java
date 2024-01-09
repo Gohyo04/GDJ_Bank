@@ -15,6 +15,9 @@ public class ProductService {
 	
 	public List<ProductDTO> getList(Pager pager) {
 		pager.makeRow();
+		Long totalCount = productDAO.getTotal(pager);
+		
+		pager.makeNum(totalCount);
 		List<ProductDTO> ar = this.productDAO.getlist(pager); 
 		return ar;
 	}
@@ -24,6 +27,6 @@ public class ProductService {
 	}
 	
 	public int add(ProductDTO pdto) {
-		return productDAO.doAdd(pdto);
+		return productDAO.add(pdto);
 	}
 }
