@@ -41,9 +41,8 @@ public class ProductDAO {
 		return 0;
 	}
 	
-	public int doDelete(ProductDTO productDTO) {
-		
-		return 0;
+	public int delete(ProductDTO productDTO) {
+		return sqlSession.delete(namespace+"delete", productDTO);
 	}
 
 	

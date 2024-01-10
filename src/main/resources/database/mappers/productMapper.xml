@@ -41,4 +41,8 @@
   			#{productJumsu}
 		)
   	</insert>
+  	
+  	<delete id="delete" parameterType="ProductDTO">
+  		DELETE PRODUCT WHERE PRODUCTNUM = #{productNum}
+  	</delete>
   </mapper>
