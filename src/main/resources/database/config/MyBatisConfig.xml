@@ -8,5 +8,7 @@
    	<typeAliases>
  		<typeAlias type="com.gohyo.app.product.ProductDTO" alias="ProductDTO"/>
  		<typeAlias type="com.gohyo.app.util.Pager" alias="Pager"/>
+ 		<typeAlias type="com.gohyo.app.product.ProductFileDTO" alias="ProductFileDTO"/>
+ 		<typeAlias type="java.lang.Long" alias="Long"/>
  	</typeAliases>
   </configuration>

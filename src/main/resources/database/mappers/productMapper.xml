@@ -28,12 +28,17 @@
   	</select>
   	
   	<insert id="add" parameterType="ProductDTO">
+  		<selectKey keyProperty="productNum" order="BEFORE" resultType="Long">
+			  SELECT NO_PK.NEXTVAL FROM DUAL 
+  		</selectKey>
   		INSERT INTO PRODUCT 
-  		VALUES(
-  			NO_PK.NEXTVAL,
+  		VALUES
+  		(
+  			#{productNum},
   			#{productName},
   			#{productContents},
   			#{productRate},
-  			#{productJumsu})
+  			#{productJumsu}
+		)
   	</insert>
   </mapper>

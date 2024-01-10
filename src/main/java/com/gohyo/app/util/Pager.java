@@ -134,6 +134,11 @@ public class Pager {
 			this.setLastNum(totalPage);
 			this.setLast(true);
 		}
+		
+		if(totalCount <= 10) {
+			this.setStartNum(1L);
+			this.setLastNum(1L);
+		}
 	}
 }
 

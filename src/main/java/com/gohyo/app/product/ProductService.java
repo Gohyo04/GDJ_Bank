@@ -27,6 +27,9 @@ public class ProductService {
 	}
 	
 	public int add(ProductDTO pdto) {
-		return productDAO.add(pdto);
+		int result = productDAO.add(pdto);
+		
+		
+		return 0;
 	}
 }

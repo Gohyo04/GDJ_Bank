@@ -50,9 +50,9 @@ public class ProductController {
 			msg = "성공";
 		}
 		
-		mv.addObject("add", pdto);
-		mv.setViewName("products/list");
-		
+		mv.addObject("msg", msg);
+		mv.addObject("path","./list");
+		mv.setViewName("commons/result");
 		return mv;
 	}
 }

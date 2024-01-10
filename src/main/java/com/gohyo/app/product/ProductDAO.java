@@ -28,8 +28,12 @@ public class ProductDAO {
 		return sqlSession.selectOne(namespace+"getDetail",productDTO);
 	}
 		
-	public int add(ProductDTO productDTO) {	
-		return sqlSession.insert(namespace+"add","productDTO");
+	public int add(ProductDTO productDTO) {
+		return sqlSession.insert(namespace+"add",productDTO);
+	}
+	
+	public int addFile(ProductFileDTO productFileDTO)throws Exception {
+		return sqlSession.insert(namespace+"addFile", productFileDTO);
 	}
 	
 	public int doUpdate(ProductDTO productDTO) {
