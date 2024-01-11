@@ -19,18 +19,24 @@
 	    		<div>${dto.productRate}</div>
 	    		<div>${dto.productJumsu}</div>
 	    		<div>
-	    			<h3>File</h3>
-					<a href="/resources/upload/products/${dto.productFileDTO.fileName}">${dto.productFileDTO.oriName}</a>
+	    			<h3>File</h3>	    			
+	    			<c:forEach items="${dto.productFileDTOs}" var="i">
+						<a href="/resources/upload/products/${i.fileName}">${i.oriName}</a>
+					</c:forEach>
 				</div>
 	    	</c:if>
 	    	<c:if test="${empty dto}">
 	    		<h3>없는 번호 입니다.</h3>
 	    	</c:if>
     	</div>
-    	<a href="">Update</a>
+   	    	<button id="del">Delete</button>
+	    	<form id="frm" action="./delete" method="post">
+	    		<input type="hidden" name="productNum" value="${dto.productNum}">
+	    	</form>
     </section>
 	
 	
 	<c:import url="../temps/bootStrap_js.jsp"></c:import>
+	<script src="../resources/js/productDetail.js"></script>	
 </body>
 </html>

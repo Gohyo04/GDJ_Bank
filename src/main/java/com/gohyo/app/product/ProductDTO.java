@@ -1,6 +1,6 @@
 package com.gohyo.app.product;
 
-import java.sql.Date;
+import java.util.List;
 
 public class ProductDTO {
 	
@@ -10,13 +10,14 @@ public class ProductDTO {
 	private Double productRate;
 	private Double productJumsu;
 	
-	private ProductFileDTO productFileDTO;
+	private List<ProductFileDTO> productFileDTOs;
 	
-	public ProductFileDTO getProductFileDTO() {
-		return productFileDTO;
+	
+	public List<ProductFileDTO> getProductFileDTOs() {
+		return productFileDTOs;
 	}
-	public void setProductFileDTO(ProductFileDTO productFileDTO) {
-		this.productFileDTO = productFileDTO;
+	public void setProductFileDTOs(List<ProductFileDTO> productFileDTO) {
+		this.productFileDTOs = productFileDTO;
 	}
 	public Long getProductNum() {
 		return productNum;

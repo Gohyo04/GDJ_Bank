@@ -1,5 +1,5 @@
 /**
- * 
+ * Detail Page button
  */
  const del = document.getElementById('del');
  const frm = document.getElementById('frm');
@@ -14,13 +14,4 @@
     }
  });
 
-
- up.addEventListener('click', function(){
-    frm.setAttribute("action","update");
-    frm.setAttribute("method","get");
-    frm.submit();
-    
-    // let id = up.getAttribute('data-region-id');
-    // location.href="./update?region_id="+id;
- });
 

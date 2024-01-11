@@ -44,7 +44,7 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value="add", method = RequestMethod.POST)
-	public ModelAndView add(ProductDTO pdto, ModelAndView mv, MultipartFile photo) throws Exception{
+	public ModelAndView add(ProductDTO pdto, ModelAndView mv, MultipartFile[] photo) throws Exception{
 		int result = productService.add(pdto, photo);
 		String msg = "실패";
 		if(result > 0) {

@@ -35,6 +35,8 @@
 			  </div>
 			  <div class=mb-3>
 			  	<input type="file" name="photo">
+			  	<input type="file" name="photo">
+			  	<input type="file" name="photo">
 			  </div>
 			  
 			  <button type="submit" class="btn btn-primary">전송</button>

@@ -38,14 +38,28 @@
   		<result column="PRODUCTCONTENTS" property="productContents"/>
   		<result column="PRODUCTRATE" property="productRate"/>
   		<result column="PRODUCTJUMSU" property="productJumsu"/>
-  		<association property="productFileDTO" javaType="ProductFileDTO">
-  			<!-- PK -->
-  			<id column="FILENUM" property="fileNum"/>
-  			<!-- 그외 -->
+<!--   		<association property="productFileDTO" javaType="ProductFileDTO">
+  			PK
+  			<id column="PRODUCTNUM" property="productNum"/>
+  			그외
   			<result column="FILENAME" property="fileName"/>
   			<result column="ORINAME" property="oriName"/>
-  		</association>
+  		</association> -->
+   	 	<collection property="productFileDTOs" javaType="List" ofType="productFileDTO">
+  			<!-- PK --> 
+   			<id column="PRODUCTNUM" property="productNum"/>
+  			<!-- 그외 --> 
+   			<result column="FILENAME" property="fileName"/> 
+  			<result column="ORINAME" property="oriName"/>
+  		</collection>
   	</resultMap>
+  	
+	<!-- File List 1:N -->
+	<select id="getListFiles" resultType="ProductFileDTO" parameterType="ProductDTO">
+		SELECT * FROM PRODUCTFILES
+		WHERE PRODUCTNUM = #{productNum}
+	</select>
+  	
   	
   	<insert id="add" parameterType="ProductDTO">
   		<selectKey keyProperty="productNum" order="BEFORE" resultType="Long">
