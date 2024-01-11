@@ -18,6 +18,10 @@
 	    		<div>${dto.productName}</div>
 	    		<div>${dto.productRate}</div>
 	    		<div>${dto.productJumsu}</div>
+	    		<div>
+	    			<h3>File</h3>
+					<a href="/resources/upload/products/${dto.productFileDTO.fileName}">${dto.productFileDTO.oriName}</a>
+				</div>
 	    	</c:if>
 	    	<c:if test="${empty dto}">
 	    		<h3>없는 번호 입니다.</h3>

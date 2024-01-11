@@ -24,7 +24,7 @@ public class ProductDAO {
 		return sqlSession.selectOne(namespace+"getTotal",pager);
 	}
 	
-	public ProductDTO getDetail(ProductDTO productDTO) {
+	public ProductDTO getDetail(ProductDTO productDTO){
 		return sqlSession.selectOne(namespace+"getDetail",productDTO);
 	}
 		

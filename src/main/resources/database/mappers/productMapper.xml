@@ -23,9 +23,29 @@
 			WHERE R BETWEEN #{startRow} AND #{lastRow}
   	</select>
   	
-  	<select id="getDetail" resultType="ProductDTO" parameterType="ProductDTO">
-  		SELECT * FROM PRODUCT WHERE PRODUCTNUM = #{productNum}
+  	<select id="getDetail" resultMap="getDetailResult" parameterType="ProductDTO">
+  		SELECT * 
+		FROM PRODUCT
+		LEFT OUTER JOIN PRODUCTFILES
+		USING(PRODUCTNUM)
+		WHERE PRODUCTNUM = #{productNum}
   	</select>
+  	<resultMap type="ProductDTO" id="getDetailResult">
+  		<!-- PK -->
+  		<id column="PRODUCTNUM" property="productNum"/>
+  		<!-- 나머지 -->
+  		<result column="PRODUCTNAME" property="productName"/>
+  		<result column="PRODUCTCONTENTS" property="productContents"/>
+  		<result column="PRODUCTRATE" property="productRate"/>
+  		<result column="PRODUCTJUMSU" property="productJumsu"/>
+  		<association property="productFileDTO" javaType="ProductFileDTO">
+  			<!-- PK -->
+  			<id column="FILENUM" property="fileNum"/>
+  			<!-- 그외 -->
+  			<result column="FILENAME" property="fileName"/>
+  			<result column="ORINAME" property="oriName"/>
+  		</association>
+  	</resultMap>
   	
   	<insert id="add" parameterType="ProductDTO">
   		<selectKey keyProperty="productNum" order="BEFORE" resultType="Long">
@@ -40,6 +60,11 @@
   			#{productRate},
   			#{productJumsu}
 		)
+  	</insert>
+  	
+  	<insert id="addFile" parameterType="ProductFileDTO">
+  		INSERT INTO PRODUCTFILES (PRODUCTNUM, FILENUM, FILENAME, ORINAME)
+		VALUES (#{productNum}, PF_SEQ.NEXTVAL, #{fileName}, #{oriName})
   	</insert>
   	
   	<delete id="delete" parameterType="ProductDTO">
