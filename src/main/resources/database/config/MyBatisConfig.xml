@@ -4,12 +4,4 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
   
-  <configuration>
-   	<typeAliases>
- 		<typeAlias type="com.gohyo.app.product.ProductDTO" alias="ProductDTO"/>
- 		<typeAlias type="com.gohyo.app.util.Pager" alias="Pager"/>
- 		<typeAlias type="com.gohyo.app.product.ProductFileDTO" alias="ProductFileDTO"/>
- 		<typeAlias type="java.lang.Long" alias="Long"/>
- 		<typeAlias type="java.util.List" alias="List"/>
- 	</typeAliases>
-  </configuration>
+  <configuration></configuration>
