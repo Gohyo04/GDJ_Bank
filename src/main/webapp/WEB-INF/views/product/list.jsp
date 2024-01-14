@@ -19,6 +19,37 @@
 			<c:import url="../temps/header.jsp"></c:import>
 			
             
+			<div class="container px-5 my-5">
+	        	<div class="text-center mb-5">
+                    <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">Product List</span></h1>
+           		</div>	
+                <div>
+                	<table class="table">
+					  <thead>
+					    <tr>
+					      <th scope="col">ProductNum</th>
+					      <th scope="col">productName</th>
+					      <th scope="col">productContents</th>
+					      <th scope="col">productRate</th>
+					    </tr>
+					  </thead>
+					  <tbody class="table-group-divider">
+						  <c:forEach items="${requestScope.list}" var="dto">
+						    <tr>
+						      <th>${dto.productNum}</th>
+						      <td>${dto.productName}</td>
+						      <td>${dto.productContents}</td>
+						      <td>${dto.productRate}</td>
+						   </tr>
+				   		</c:forEach>
+					  </tbody>
+					</table>
+                </div>
+                <div>
+                	<a href="add" class="btn btn-danger">상품등록</a>
+                </div>		
+			</div>
+            
         </main>
 	<!-- Footer-->
 	<!-- 사용전 경로를 꼭 수정하세요 -->
