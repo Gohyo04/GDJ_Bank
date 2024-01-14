@@ -13,11 +13,12 @@ public class ProductDTO {
 	private List<ProductFileDTO> productFileDTOs;
 	
 	
+	
 	public List<ProductFileDTO> getProductFileDTOs() {
 		return productFileDTOs;
 	}
-	public void setProductFileDTOs(List<ProductFileDTO> productFileDTO) {
-		this.productFileDTOs = productFileDTO;
+	public void setProductFileDTOs(List<ProductFileDTO> productFileDTOs) {
+		this.productFileDTOs = productFileDTOs;
 	}
 	public Long getProductNum() {
 		return productNum;
