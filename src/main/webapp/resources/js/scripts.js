@@ -1,7 +1,11 @@
-/*!
-* Start Bootstrap - Personal v1.0.1 (https://startbootstrap.com/template-overviews/personal)
-* Copyright 2013-2023 Start Bootstrap
-* Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-personal/blob/master/LICENSE)
-*/
-// This file is intentionally blank
-// Use this file to add JavaScript to your project
+const del = document.getElementById("del");
+const frm = document.getElementById("frm");
+const up = document.getElementById("up");
+
+ del.addEventListener("click", function(){
+      let result = confirm("삭제할것인가요?");  
+
+      if(result){
+        frm.submit();  
+      }
+ });

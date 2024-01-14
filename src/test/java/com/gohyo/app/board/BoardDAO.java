@@ -2,6 +2,8 @@ package com.gohyo.app.board;
 
 import java.util.List;
 
+import com.gohyo.app.product.ProductDTO;
+
 // 겹치는 DAO들을 여기서 미리정의 만들어가면서 매개변수도 다시 입력
 public interface BoardDAO {
 	
@@ -9,7 +11,7 @@ public interface BoardDAO {
 	public Long getTotalCount()throws Exception;
 	
 	//list
-	public List<BoardDTO> getList()throws Exception;
+	public List<BoardDTO> getList(ProductDTO productDTO)throws Exception;
 	
 	//detail
 	public BoardDTO getDetail(BoardDTO boardDTO)throws Exception;
