@@ -24,7 +24,6 @@ public class Pager {
 		return start;
 	}
 
-
 	public boolean isLast() {
 		return last;
 	}
