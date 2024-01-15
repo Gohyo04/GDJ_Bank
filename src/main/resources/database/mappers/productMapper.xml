@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.gohyo.app.product.ProductDAO">
+  
+  	<select id="getDetail" parameterType="ProductDTO" resultType="ProductDTO">
+  		SELECT * FROM PRODUCT WHERE PRODUCTNUM = #{productNum}
+  	</select>
+  
+  	<select id="getList" resultType="ProductDTO">
+		SELECT * FROM PRODUCT
+  	</select>
+  	
+  	<select id="getTotal" resultType="Long" parameterType="Pager">
+  		SELECT COUNT(PRODUCTNUM) FROM PRODUCT
+  	</select>
+  	
+  	<insert id="doAdd" parameterType="ProductDTO">
+  		INSERT INTO PRODUCT (PRODUCTNUM, PRODUCTNAME, PRODUCTCONTENTS, PRODUCTRATE) 
+  		VALUES (PNPK_SEQ.NEXTVAL,#{productName},#{productContents},#{productRate})
+  	</insert>
+  	
+  	<update id="doUpdate" parameterType="ProductDTO">
+  		UPDATE PRODUCT SET 
+  			PRODUCTNAME=#{productName}, 
+  			PRODUCTCONTENTS=#{productContents}, 
+  			PRODUCTRATE=#{productRate} 
+  			WHERE PRODUCTNUM = #{productNum}
+  	</update>
+  	
+  	<delete id="delete" parameterType="ProductDTO">
+  		DELETE PRODUCT WHERE PRODUCTNUM = #{productNum}
+  	</delete>
+  </mapper>

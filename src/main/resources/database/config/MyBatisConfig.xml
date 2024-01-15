@@ -3,5 +3,14 @@
 <!DOCTYPE configuration
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
-  
-  <configuration></configuration>
+  	
+  <configuration>
+  	<typeAliases>
+  		<typeAlias type="com.gohyo.app.product.ProductDTO" alias="ProductDTO"/>
+  		<typeAlias type="com.gohyo.app.board.notice.NoticeDTO" alias="NoticeDTO"/>
+  		<typeAlias type="com.gohyo.app.board.qna.QnaDTO" alias="QnaDTO"/>
+  		
+  		<typeAlias type="com.gohyo.app.util.Pager" alias="Pager"/>
+  		<typeAlias type="java.lang.Long" alias="Long"/>
+  	</typeAliases>
+  </configuration>
