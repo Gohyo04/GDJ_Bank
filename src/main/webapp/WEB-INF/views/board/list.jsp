@@ -40,7 +40,7 @@
 										<c:forEach items="${list}" var="i">
 	                        				<tr>
 												<td>${i.noticeNum}</td>
-												<td>${i.noticeTitle}</td>
+												<td><a href="./detail?noticeNum=${i.noticeNum}">${i.noticeTitle}</a></td>
 												<td>${i.noticeWriter}</td>
 												<td>${i.noticeDate}</td>
 												<td>${i.noticeCount}</td>
@@ -49,6 +49,11 @@
                        				</tbody>
                         			
                         		</table>
+                        		
+                        		<div>
+                        			<a href="./add" class="btn btn-danger">글쓰기</a>
+                        		</div>
+                        		
                         	</div>
                         </div>
                     </div>

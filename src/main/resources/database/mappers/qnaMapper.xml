@@ -14,4 +14,38 @@
 	  			) Q
 	  		)WHERE R BETWEEN #{startRow} AND #{lastRow}
   	</select>
+  	
+  	<resultMap type="QnaDTO" id="getDetailResult">
+  		<id column="NOTICENUM" property="noticeNum"/>
+  		<result column="NOTICETITLE" property="noticeTitle"/>
+  		<result column="NOTICEWRITER" property="noticeWriter"/>
+  		<result column="NOTICEDATE" property="noticeDate"/>
+  		<result column="NOTICECOUNT" property="noticeCount"/>
+  		<result column="NOTICECONTENTS" property="noticeContents"/>
+		<result column="QNAREF" property="qnaRef"/>
+  		<result column="QNASTEP" property="qnaStep"/>
+  		<result column="QNADEPTH" property="qnaDepth"/>
+  		
+  		<collection property="fileDTOs" javaType="List" ofType="BoardFileDTO">
+  			<id column="FILENUM" property="fileNum"/>
+  			<result column="FILENAME" property="fileName"/>
+  			<result column="oriName" property="oriName"/>
+  		</collection>
+  	</resultMap>
+  	
+  	<select id="getDetail" parameterType="QnaDTO" resultType="BoardDTO" resultMap="getDetailResult">
+ 		SELECT *  
+ 		FROM QNA Q 
+  			LEFT JOIN QNAFILES QF
+  			USING (NOTICENUM)
+  			WHERE NOTICENUM = #{noticeNum}
+  	</select>
+  	
+  	<insert id="setAdd" parameterType="BoardDTO">
+  	  	<selectKey keyProperty="noticeNum" resultType="Long" order="BEFORE">
+  			SELECT BOARD_SEQ.NEXTVAL FROM DUAL
+  		</selectKey>
+  		INSERT INTO QNA (NOTICENUM, NOTICETITLE, NOTICEWRITER, NOTICECONTENTS, NOTICEDATE, NOTICECOUNT, QNAREF, QNASTEP, QNADEPTH) 
+  		VALUES (#{noticeNum},#{noticeTitle},#{noticeWriter},#{noticeContents}, SYSDATE, 0, #{noticeNum}, 0, 0)
+  	</insert>
   </mapper>

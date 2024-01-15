@@ -16,4 +16,48 @@
 	  		) N
 	  	)WHERE R BETWEEN #{startRow} AND #{lastRow}
   	</select>
+  	
+  	<resultMap type="NoticeDTO" id="getDetailResult">
+  		<id column="NOTICENUM" property="noticeNum"/>
+  		<result column="NOTICETITLE" property="noticeTitle"/>
+  		<result column="NOTICEWRITER" property="noticeWriter"/>
+  		<result column="NOTICEDATE" property="noticeDate"/>
+  		<result column="NOTICECOUNT" property="noticeCount"/>
+  		<result column="NOTICECONTENTS" property="noticeContents"/>
+  		
+  		<collection property="fileDTOs" javaType="List" ofType="BoardFileDTO">
+  			<id property="fileNum" column="FILENUM"/>
+  			<result property="fileName" column="FILENAME"/>
+  			<result property="oriName" column="ORINAME"/>
+  		</collection>
+  	</resultMap>
+  	
+	<select id="getDetail" parameterType="NoticeDTO" resultType="BoardDTO" resultMap="getDetailResult">
+ 		SELECT *  
+ 		FROM NOTICE N 
+  			LEFT JOIN NOTICEFILES NF
+  			USING (NOTICENUM)
+  			WHERE NOTICENUM = #{noticeNum}
+  	</select>
+  	
+  	<insert id="setAdd" parameterType="NoticeDTO">
+  		<selectKey keyProperty="noticeNum" resultType="Long" order="BEFORE">
+  			SELECT BOARD_SEQ.NEXTVAL FROM DUAL
+  		</selectKey>
+  		INSERT INTO NOTICE (NOTICENUM, NOTICETITLE, NOTICEWRITER, NOTICECONTENTS, NOTICEDATE, NOTICECOUNT) 
+  		VALUES (#{noticeNum},#{noticeTitle},#{noticeWriter},#{noticeContents}, SYSDATE, 0)
+  	</insert>
   </mapper>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

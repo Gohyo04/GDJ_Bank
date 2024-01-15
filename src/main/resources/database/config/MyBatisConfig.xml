@@ -9,6 +9,8 @@
   		<typeAlias type="com.gohyo.app.product.ProductDTO" alias="ProductDTO"/>
   		<typeAlias type="com.gohyo.app.board.notice.NoticeDTO" alias="NoticeDTO"/>
   		<typeAlias type="com.gohyo.app.board.qna.QnaDTO" alias="QnaDTO"/>
+  		<typeAlias type="com.gohyo.app.board.BoardDTO" alias="BoardDTO"/>
+  		<typeAlias type="com.gohyo.app.board.BoardFileDTO" alias="BoardFileDTO"/>
   		
   		<typeAlias type="com.gohyo.app.util.Pager" alias="Pager"/>
   		<typeAlias type="java.lang.Long" alias="Long"/>

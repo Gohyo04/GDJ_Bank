@@ -23,14 +23,13 @@ public class QnaService implements BoardService{
 
 	@Override
 	public BoardDTO getDetail(BoardDTO boardDTO) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		boardDTO = qnaDAO.getDetail(boardDTO);
+		return boardDTO;
 	}
 
 	@Override
 	public int setAdd(BoardDTO boardDTO) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		return qnaDAO.setAdd(boardDTO);
 	}
 
 	@Override

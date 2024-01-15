@@ -24,9 +24,8 @@ public class NoticeDAO implements BoardDAO{
 	}
 
 	@Override
-	public BoardDTO getDetail() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public BoardDTO getDetail(BoardDTO boardDTO) throws Exception {
+		return sqlSession.selectOne(namespace+"getDetail", boardDTO);
 	}
 
 	@Override
@@ -34,7 +33,12 @@ public class NoticeDAO implements BoardDAO{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	@Override
+	public int setAdd(BoardDTO boardDTO) throws Exception{
+		return sqlSession.insert(namespace+"setAdd", boardDTO);
+	}
+	
 	@Override
 	public int doUpdate() throws Exception {
 		// TODO Auto-generated method stub

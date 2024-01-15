@@ -29,14 +29,13 @@ public class NoticeService implements BoardService{
 
 	@Override
 	public BoardDTO getDetail(BoardDTO boardDTO) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return noticeDAO.getDetail(boardDTO);
 	}
 
 	@Override
 	public int setAdd(BoardDTO boardDTO) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = noticeDAO.setAdd(boardDTO);
+		return result;
 	}
 
 	@Override

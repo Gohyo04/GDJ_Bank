@@ -24,11 +24,16 @@ public class QnaDAO implements BoardDAO{
 	}
 
 	@Override
-	public BoardDTO getDetail() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public BoardDTO getDetail(BoardDTO boardDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"getDetail", boardDTO);
 	}
 
+	@Override
+	public int setAdd(BoardDTO boardDTO) throws Exception {
+		int result = sqlSession.insert(NAMESPACE+"setAdd", boardDTO);
+		return result;
+	}
+	
 	@Override
 	public Long getTotal() throws Exception {
 		// TODO Auto-generated method stub
@@ -46,5 +51,7 @@ public class QnaDAO implements BoardDAO{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+
 	
 }
