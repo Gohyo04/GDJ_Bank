@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.gohyo.app.board.BoardDTO;
 import com.gohyo.app.util.Pager;
@@ -41,8 +42,9 @@ public class QnaCotroller {
 	}
 	
 	@PostMapping("add")
-	public String setAdd(BoardDTO boardDTO) throws Exception{
-		int result = qnaService.setAdd(boardDTO);
+	public String setAdd(BoardDTO boardDTO, MultipartFile [] photo) throws Exception{
+		int result = qnaService.setAdd(boardDTO, photo);
+		
 		return "redirect:./list";
 	}
 }

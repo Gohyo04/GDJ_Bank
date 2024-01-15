@@ -45,7 +45,22 @@
   	  	<selectKey keyProperty="noticeNum" resultType="Long" order="BEFORE">
   			SELECT BOARD_SEQ.NEXTVAL FROM DUAL
   		</selectKey>
-  		INSERT INTO QNA (NOTICENUM, NOTICETITLE, NOTICEWRITER, NOTICECONTENTS, NOTICEDATE, NOTICECOUNT, QNAREF, QNASTEP, QNADEPTH) 
-  		VALUES (#{noticeNum},#{noticeTitle},#{noticeWriter},#{noticeContents}, SYSDATE, 0, #{noticeNum}, 0, 0)
+  		INSERT INTO QNA (
+  		NOTICENUM, NOTICETITLE, NOTICEWRITER, NOTICECONTENTS, NOTICEDATE, NOTICECOUNT, 
+  		QNAREF, QNASTEP, QNADEAPTH
+  		) 
+  		VALUES (#{noticeNum},#{noticeTitle},#{noticeWriter},#{noticeContents}, SYSDATE, 0, 
+  		#{noticeNum}, 0, 0)
   	</insert>
+  	
+  		<!-- File List 1:N -->
+	<select id="getListFiles" resultType="BoardFileDTO" parameterType="BoardDTO">
+		SELECT * FROM QNAFILES
+		WHERE NOTICENUM=#{noticeNum}
+	</select>
+
+	<insert id="addFile" parameterType="BoardFileDTO">
+		INSERT INTO REGIONFILES
+		VALUES(BOARD_SEQ.NEXTVAL,#{noticeNum},#{fileName}, #{oriName})
+	</insert>
   </mapper>

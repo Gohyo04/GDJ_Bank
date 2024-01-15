@@ -16,4 +16,8 @@ public interface BoardDAO {
 	public int doDelete() throws Exception;
 
 	public int setAdd(BoardDTO boardDTO) throws Exception;
+	
+	public List<BoardFileDTO> getListFiles(BoardDTO boardDTO)throws Exception;
+	
+	public int addFile(BoardFileDTO boardFileDTO)throws Exception;
 }
