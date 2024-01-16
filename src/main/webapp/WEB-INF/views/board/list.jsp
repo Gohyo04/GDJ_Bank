@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Board List</title>
+        <title>${board}List</title>
         <!-- 사용전 경로를 꼭 수정하세요 -->
         <c:import url="../temps/head_css.jsp"></c:import>
     </head>
@@ -20,7 +20,7 @@
             
             <section class="py-5">
 					<div class="text-center mb-5">
-                        <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">BoardList</span></h1>
+                        <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">${board}List</span></h1>
                     </div>
                     <div class="row gx-5 justify-content-center">
                         <div class="col-lg-11 col-xl-9 col-xxl-8">
@@ -40,7 +40,15 @@
 										<c:forEach items="${list}" var="i">
 	                        				<tr>
 												<td>${i.noticeNum}</td>
-												<td><a href="./detail?noticeNum=${i.noticeNum}">${i.noticeTitle}</a></td>
+												<td>
+													<a href="./detail?noticeNum=${i.noticeNum}">
+														<c:catch>
+															<c:forEach begin="1" end="${i.qnaDepth}">--</c:forEach>														
+														</c:catch>
+															
+														${i.noticeTitle}
+													</a>
+												</td>
 												<td>${i.noticeWriter}</td>
 												<td>${i.noticeDate}</td>
 												<td>${i.noticeCount}</td>

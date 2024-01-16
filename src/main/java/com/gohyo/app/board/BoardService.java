@@ -15,11 +15,12 @@ public interface BoardService {
 	public BoardDTO getDetail(BoardDTO boardDTO)throws Exception;
 	
 	//add
-	public int setAdd(BoardDTO boardDTO, MultipartFile [] file) throws Exception;
+	public int setAdd(BoardDTO boardDTO, MultipartFile [] attachs) throws Exception;
 	
 	//update 
 	public int setUpdate(BoardDTO boardDTO) throws Exception;
 	
 	//delete
 	public int delete(BoardDTO boardDTO) throws Exception;
+	
 }

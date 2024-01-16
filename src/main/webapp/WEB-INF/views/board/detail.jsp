@@ -21,7 +21,7 @@
             <section class="py-5">
                 <div class="container px-5 mb-5">
                     <div class="text-center mb-5">
-                        <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">Board Detail</span></h1>
+                        <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">${board} Detail</span></h1>
                     </div>
                     <div class="row gx-5 justify-content-center">
                         <div class="col-lg-11 col-xl-9 col-xxl-8">
@@ -39,7 +39,12 @@
                                     </div>
                                 </div>
                             </div>
-                                	
+                                
+                            <c:if test="${board ne 'Notice'}">	
+	                            <div>
+	                             	<a href="./reply?noticeNum=${boardDTO.noticeNum}" class="btn btn-primary">답글</a>
+	                            </div>
+                           	</c:if>	
               			</div>
               		</div>
               	</div>

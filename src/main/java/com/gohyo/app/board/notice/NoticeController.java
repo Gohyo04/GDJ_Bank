@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.gohyo.app.board.BoardDTO;
 import com.gohyo.app.board.BoardService;
@@ -19,6 +21,11 @@ public class NoticeController{
 	
 	@Autowired
 	private BoardService noticeService;
+	
+	@ModelAttribute("board")
+	public String getBoard() {
+		return "Notice";
+	}
 	
 	//list
 	//@RequestMapping(value="list", method = RequestMethod.GET)
@@ -44,8 +51,8 @@ public class NoticeController{
 	}
 	
 	@PostMapping("add")
-	public String setAdd(BoardDTO boardDTO) throws Exception{
-		int result = noticeService.setAdd(boardDTO);
+	public String setAdd(BoardDTO boardDTO, MultipartFile [] attachs) throws Exception{
+		int result = noticeService.setAdd(boardDTO, attachs);
 		return "redirect:./list";
 	}
 	

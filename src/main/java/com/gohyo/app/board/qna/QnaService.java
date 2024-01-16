@@ -75,5 +75,26 @@ public class QnaService implements BoardService{
 		return 0;
 	}
 	
-	
+	//reply
+	public int setReply(QnaDTO qnaDTO) throws Exception{
+		// noticeNum : 부모의 글번호
+		// noticeTitle : 답글제목
+		// noticeWriter : 답글작성자
+		// noticeContents : 답글내용
+
+		// 1. 부모의 정보는 조회(REF, STEP, DEPTH)
+		QnaDTO parent = (QnaDTO)qnaDAO.getDetail(qnaDTO);
+		
+		// 2. 답글 정보 저장 (REF, STEP, DEPTH)
+		qnaDTO.setQnaRef(parent.getQnaRef());
+		qnaDTO.setQnaStep(parent.getQnaStep()+1);
+		qnaDTO.setQnaDepth(parent.getQnaDepth()+1);
+		
+		// 3. 부모의 정보로 step update
+		int result = qnaDAO.setReplyUpdate(parent);
+		
+		// 4. DB에 답글을 저장
+		result = qnaDAO.setReplyAdd(qnaDTO);
+		return result;
+	}
 }
