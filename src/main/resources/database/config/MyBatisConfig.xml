@@ -11,6 +11,7 @@
   		<typeAlias type="com.gohyo.app.board.qna.QnaDTO" alias="QnaDTO"/>
   		<typeAlias type="com.gohyo.app.board.BoardDTO" alias="BoardDTO"/>
   		<typeAlias type="com.gohyo.app.board.BoardFileDTO" alias="BoardFileDTO"/>
+  		<typeAlias type="com.gohyo.app.files.FileDTO" alias="FileDTO"/>
   		
   		<typeAlias type="com.gohyo.app.util.Pager" alias="Pager"/>
   		<typeAlias type="java.lang.Long" alias="Long"/>

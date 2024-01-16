@@ -56,9 +56,8 @@ public class QnaDAO implements BoardDAO{
 	}
 
 	@Override
-	public int doDelete() throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+	public int doDelete(BoardDTO boardDTO) throws Exception {
+		return sqlSession.update(NAMESPACE+"doDelete");
 	}
 
 	@Override
@@ -71,6 +70,12 @@ public class QnaDAO implements BoardDAO{
 		return sqlSession.insert(NAMESPACE+"addFile", boardFileDTO);
 	}
 
-
+	public List<BoardFileDTO> getFileList(BoardDTO boardDTO) throws Exception{
+		return sqlSession.selectList(NAMESPACE+"getFileList",boardDTO);
+	}
+	
+	public int setFileDelete(BoardDTO boardDTO) throws Exception{
+		return sqlSession.delete(NAMESPACE+"setFileDelete", boardDTO);
+	}
 	
 }

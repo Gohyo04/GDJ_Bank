@@ -39,10 +39,10 @@ public class QnaService implements BoardService{
 	}
 
 	@Override
-	public int setAdd(BoardDTO boardDTO, MultipartFile [] file) throws Exception {
+	public int setAdd(BoardDTO boardDTO, MultipartFile[] file) throws Exception {
 		int result = qnaDAO.setAdd(boardDTO);
 		
-		String path = servletContext.getRealPath("/resources/upload/qnas");
+		String path = servletContext.getRealPath("/resources/upload/qna");
 		
 		for(MultipartFile f : file) {
 			
@@ -71,8 +71,20 @@ public class QnaService implements BoardService{
 
 	@Override
 	public int delete(BoardDTO boardDTO) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		// 1. file을 삭제하고
+		List<BoardFileDTO> files = qnaDAO.getFileList(boardDTO);
+		String path = servletContext.getRealPath("/resources/upload/qna");
+		
+		for (BoardFileDTO b : files) {
+			fileManager.fileDelete(path, b.getFileName());			
+		}
+		// 2. file table의 정보삭제
+		int result = qnaDAO.setFileDelete(boardDTO);
+		
+		// 3. qna의 정보를 수정
+		result = qnaDAO.doDelete(boardDTO);
+		
+		return result;
 	}
 	
 	//reply

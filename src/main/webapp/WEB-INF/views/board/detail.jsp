@@ -35,16 +35,28 @@
                                             <div>
                                             	${boardDTO.noticeContents}
                                             </div>
+                                            
+                                            <div>
+                                            	<c:forEach items="${boardDTO.fileDTOs}" var="f">
+                                            		<a href="../resources/upload/${board}/${f.fileName}">${f.oriName}</a>
+                                            	</c:forEach>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                                
-                            <c:if test="${board ne 'Notice'}">	
-	                            <div>
-	                             	<a href="./reply?noticeNum=${boardDTO.noticeNum}" class="btn btn-primary">답글</a>
-	                            </div>
-                           	</c:if>	
+                            	<div>                    
+	                            <c:if test="${board ne 'notice'}">	
+		                            <div>
+		                             	<a class="btn btn-primary" href="./reply?noticeNum=${boardDTO.noticeNum}">답글</a>
+		                            </div>
+	                           	</c:if>
+	                             	<a id="update" href="./update" class="btn btn-info">Update</a>
+                           			<a id="del" href="" class="btn btn-danger">Delete</a>
+		                           	<form id="frm" action="./update" method="get">
+		                           		<input type="hidden" name="noticeNum" value="${boardDTO.noticeNum}">
+		                           	</form>
+		                        </div>
               			</div>
               		</div>
               	</div>
@@ -54,5 +66,6 @@
 	<!-- Footer-->
 	<!-- 사용전 경로를 꼭 수정하세요 -->
 	<c:import url="../temps/footer.jsp"></c:import>
+	<script src="/resources/js/boardDetail.js"></script>
     </body>
 </html>

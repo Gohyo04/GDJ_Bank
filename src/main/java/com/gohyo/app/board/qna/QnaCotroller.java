@@ -28,7 +28,7 @@ public class QnaCotroller {
 	
 	@ModelAttribute("board")
 	public String getBoard() {
-		return "Qna";
+		return "qna";
 	}
 	
 	@GetMapping("reply")
@@ -66,9 +66,40 @@ public class QnaCotroller {
 	}
 	
 	@PostMapping("add")
-	public String setAdd(BoardDTO boardDTO, MultipartFile [] photo) throws Exception{
-		int result = qnaService.setAdd(boardDTO, photo);
+	public String setAdd(BoardDTO boardDTO, MultipartFile [] attachs) throws Exception{
+		int result = qnaService.setAdd(boardDTO, attachs);
+		
 		
 		return "redirect:./list";
 	}
+	
+	@PostMapping("delete")
+	public String setDelete(QnaDTO boardDTO) throws Exception{
+		boardDTO.setFlag(1);
+		int result = qnaService.delete(boardDTO);
+		return "redirect:./list";
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
