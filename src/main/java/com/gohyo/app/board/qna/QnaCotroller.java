@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,10 +21,33 @@ public class QnaCotroller {
 	@Autowired
 	private QnaService qnaService;
 	
+	@ModelAttribute("bbs")
+	public Integer getkind() {
+		return 1;
+	}
+	
+	@ModelAttribute("board")
+	public String getBoard() {
+		return "qna";
+	}
+	
+	@GetMapping("reply")
+	public String setReply(BoardDTO boardDTO, Model model) throws Exception{
+		model.addAttribute("list", boardDTO);
+		return "board/reply";
+	}
+	
+	@PostMapping("reply")
+	public String setReply(QnaDTO qnaDTO) throws Exception{
+		int result = qnaService.setReply(qnaDTO);
+		
+		return "redirect:./list";
+	}
+	
 	@GetMapping("list")
 	public String getList(Model model, Pager pager) throws Exception{
 		List<BoardDTO> ar = qnaService.getList(pager);
-		
+	
 		model.addAttribute("list", ar);
 		return "board/list";
 	}
@@ -42,9 +66,40 @@ public class QnaCotroller {
 	}
 	
 	@PostMapping("add")
-	public String setAdd(BoardDTO boardDTO, MultipartFile [] photo) throws Exception{
-		int result = qnaService.setAdd(boardDTO, photo);
+	public String setAdd(BoardDTO boardDTO, MultipartFile [] attachs) throws Exception{
+		int result = qnaService.setAdd(boardDTO, attachs);
+		
 		
 		return "redirect:./list";
 	}
+	
+	@PostMapping("delete")
+	public String setDelete(QnaDTO boardDTO) throws Exception{
+		boardDTO.setFlag(1);
+		int result = qnaService.delete(boardDTO);
+		return "redirect:./list";
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

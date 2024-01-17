@@ -13,7 +13,7 @@ public interface BoardDAO {
 	
 	public int doUpdate() throws Exception;
 	
-	public int doDelete() throws Exception;
+	public int doDelete(BoardDTO boardDTO) throws Exception;
 
 	public int setAdd(BoardDTO boardDTO) throws Exception;
 	

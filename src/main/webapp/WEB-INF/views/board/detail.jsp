@@ -21,7 +21,7 @@
             <section class="py-5">
                 <div class="container px-5 mb-5">
                     <div class="text-center mb-5">
-                        <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">Board Detail</span></h1>
+                        <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">${board} Detail</span></h1>
                     </div>
                     <div class="row gx-5 justify-content-center">
                         <div class="col-lg-11 col-xl-9 col-xxl-8">
@@ -35,11 +35,28 @@
                                             <div>
                                             	${boardDTO.noticeContents}
                                             </div>
+                                            
+                                            <div>
+                                            	<c:forEach items="${boardDTO.fileDTOs}" var="f">
+                                            		<a href="../resources/upload/${board}/${f.fileName}">${f.oriName}</a>
+                                            	</c:forEach>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                                	
+                            	<div>                    
+	                            <c:if test="${board ne 'notice'}">	
+		                            <div>
+		                             	<a class="btn btn-primary" href="./reply?noticeNum=${boardDTO.noticeNum}">답글</a>
+		                            </div>
+	                           	</c:if>
+	                             	<a id="update" href="./update" class="btn btn-info">Update</a>
+                           			<a id="del" href="" class="btn btn-danger">Delete</a>
+		                           	<form id="frm" action="./update" method="get">
+		                           		<input type="hidden" name="noticeNum" value="${boardDTO.noticeNum}">
+		                           	</form>
+		                        </div>
               			</div>
               		</div>
               	</div>
@@ -49,5 +66,6 @@
 	<!-- Footer-->
 	<!-- 사용전 경로를 꼭 수정하세요 -->
 	<c:import url="../temps/footer.jsp"></c:import>
+	<script src="/resources/js/boardDetail.js"></script>
     </body>
 </html>

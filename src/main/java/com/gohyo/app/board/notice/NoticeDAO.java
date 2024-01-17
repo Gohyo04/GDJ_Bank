@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.gohyo.app.board.BoardDAO;
 import com.gohyo.app.board.BoardDTO;
+import com.gohyo.app.board.BoardFileDTO;
 import com.gohyo.app.util.Pager;
 
 @Repository
@@ -46,8 +47,19 @@ public class NoticeDAO implements BoardDAO{
 	}
 
 	@Override
-	public int doDelete() throws Exception {
+	public int doDelete(BoardDTO boardDTO) throws Exception {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public List<BoardFileDTO> getListFiles(BoardDTO boardDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int addFile(BoardFileDTO boardFileDTO) throws Exception {
+		return sqlSession.insert(namespace+"addFile", boardFileDTO);
 	}
 }

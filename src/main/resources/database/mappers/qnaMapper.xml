@@ -5,12 +5,48 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="com.gohyo.app.board.qna.QnaDAO">
+  
+  
+  	<!-- file delete -->
+  	<delete id="setFileDelete" parameterType="BoardDTO">
+  		DELETE QNAFILES WHERE NOTICENUM = #{noticeNum}
+  	</delete>
+  	
+  	<!-- file List -->
+  	<select id="getFileList" parameterType="BoardDTO" resultType="FileDTO">
+  		SELECT FILENAME FROM QNAFILES WHERE NOTICENUM = #{noticeNum}
+  	</select>
+  
+  	<!-- reply add -->
+  	<insert id="setReplyAdd" parameterType="QnaDTO">
+  		<selectKey keyProperty="noticeNum" resultType="Long" order="BEFORE">
+  			SELECT BOARD_SEQ.NEXTVAL FROM DUAL
+  		</selectKey>
+  		INSERT INTO QNA (
+  		NOTICENUM, NOTICETITLE, NOTICEWRITER, NOTICECONTENTS, NOTICEDATE, NOTICECOUNT, 
+  		QNAREF, QNASTEP, QNADEAPTH, FLAG)
+  		VALUES (#{noticeNum},#{noticeTitle},#{noticeWriter},#{noticeContents}, SYSDATE, 0, 
+  		#{qnaRef}, #{qnaStep}, #{qnaDepth},0)
+  	</insert>
+  
+  	<!-- reply step update -->
+  	<update id="setReplyUpdate" parameterType="QnaDTO">
+  		UPDATE QNA SET QNASTEP = QNASTEP+1 
+  		WHERE QNAREF = #{qnaRef} AND QNASTEP > #{qnaStep}  
+  	</update>
+  	
+  	<update id="doDelete" parameterType="QnaDTO">
+  		UPDATE QNA SET FLAG = #{flag} WHERE NOTICENUM = #{noticeNum}
+  	</update>
+  
   	<select id="getList" resultType="QnaDTO" parameterType="Pager">
   		SELECT * FROM
 	  		(
 	  		SELECT ROWNUM R, Q.* FROM 
 	  			(
-	  			SELECT * FROM QNA ORDER BY NOTICENUM DESC
+	  			SELECT * FROM QNA 
+	  			
+	  			ORDER BY QNAREF DESC, QNASTEP ASC
 	  			) Q
 	  		)WHERE R BETWEEN #{startRow} AND #{lastRow}
   	</select>
@@ -47,10 +83,10 @@
   		</selectKey>
   		INSERT INTO QNA (
   		NOTICENUM, NOTICETITLE, NOTICEWRITER, NOTICECONTENTS, NOTICEDATE, NOTICECOUNT, 
-  		QNAREF, QNASTEP, QNADEAPTH
+  		QNAREF, QNASTEP, QNADEPTH, FLAG
   		) 
   		VALUES (#{noticeNum},#{noticeTitle},#{noticeWriter},#{noticeContents}, SYSDATE, 0, 
-  		#{noticeNum}, 0, 0)
+  		#{noticeNum}, 0, 0, 0)
   	</insert>
   	
   		<!-- File List 1:N -->
@@ -60,7 +96,10 @@
 	</select>
 
 	<insert id="addFile" parameterType="BoardFileDTO">
-		INSERT INTO REGIONFILES
-		VALUES(BOARD_SEQ.NEXTVAL,#{noticeNum},#{fileName}, #{oriName})
+	<selectKey keyProperty="fileNum" resultType="Long" order="BEFORE">
+		SELECT BOARD_SEQ.NEXTVAL FROM DUAL
+	</selectKey>
+		INSERT INTO QNAFILES (FILENUM, NOTICENUM, FILENAME, ORINAME)
+		VALUES(#{fileNum},#{noticeNum}, #{fileName}, #{oriName})
 	</insert>
   </mapper>

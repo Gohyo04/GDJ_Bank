@@ -19,6 +19,14 @@ public class QnaDAO implements BoardDAO{
 	
 	private final String NAMESPACE = "com.gohyo.app.board.qna.QnaDAO.";
 	
+	public int setReplyAdd(QnaDTO qnaDTO) throws Exception{
+		return sqlSession.insert(NAMESPACE+"setReplyAdd", qnaDTO);
+	}
+	
+	public int setReplyUpdate(QnaDTO qnaDTO) throws Exception{
+		return sqlSession.update(NAMESPACE+"setReplyUpdate", qnaDTO);
+	}
+	
 	@Override
 	public List<BoardDTO> getList(Pager pager) throws Exception {
 		return sqlSession.selectList(NAMESPACE+"getList", pager);
@@ -48,9 +56,8 @@ public class QnaDAO implements BoardDAO{
 	}
 
 	@Override
-	public int doDelete() throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+	public int doDelete(BoardDTO boardDTO) throws Exception {
+		return sqlSession.update(NAMESPACE+"doDelete");
 	}
 
 	@Override
@@ -63,6 +70,12 @@ public class QnaDAO implements BoardDAO{
 		return sqlSession.insert(NAMESPACE+"addFile", boardFileDTO);
 	}
 
-
+	public List<BoardFileDTO> getFileList(BoardDTO boardDTO) throws Exception{
+		return sqlSession.selectList(NAMESPACE+"getFileList",boardDTO);
+	}
+	
+	public int setFileDelete(BoardDTO boardDTO) throws Exception{
+		return sqlSession.delete(NAMESPACE+"setFileDelete", boardDTO);
+	}
 	
 }

@@ -39,10 +39,10 @@ public class QnaService implements BoardService{
 	}
 
 	@Override
-	public int setAdd(BoardDTO boardDTO, MultipartFile [] file) throws Exception {
+	public int setAdd(BoardDTO boardDTO, MultipartFile[] file) throws Exception {
 		int result = qnaDAO.setAdd(boardDTO);
 		
-		String path = servletContext.getRealPath("/resources/upload/qnas");
+		String path = servletContext.getRealPath("/resources/upload/qna");
 		
 		for(MultipartFile f : file) {
 			
@@ -71,9 +71,42 @@ public class QnaService implements BoardService{
 
 	@Override
 	public int delete(BoardDTO boardDTO) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		// 1. file을 삭제하고
+		List<BoardFileDTO> files = qnaDAO.getFileList(boardDTO);
+		String path = servletContext.getRealPath("/resources/upload/qna");
+		
+		for (BoardFileDTO b : files) {
+			fileManager.fileDelete(path, b.getFileName());			
+		}
+		// 2. file table의 정보삭제
+		int result = qnaDAO.setFileDelete(boardDTO);
+		
+		// 3. qna의 정보를 수정
+		result = qnaDAO.doDelete(boardDTO);
+		
+		return result;
 	}
 	
-	
+	//reply
+	public int setReply(QnaDTO qnaDTO) throws Exception{
+		// noticeNum : 부모의 글번호
+		// noticeTitle : 답글제목
+		// noticeWriter : 답글작성자
+		// noticeContents : 답글내용
+
+		// 1. 부모의 정보는 조회(REF, STEP, DEPTH)
+		QnaDTO parent = (QnaDTO)qnaDAO.getDetail(qnaDTO);
+		
+		// 2. 답글 정보 저장 (REF, STEP, DEPTH)
+		qnaDTO.setQnaRef(parent.getQnaRef());
+		qnaDTO.setQnaStep(parent.getQnaStep()+1);
+		qnaDTO.setQnaDepth(parent.getQnaDepth()+1);
+		
+		// 3. 부모의 정보로 step update
+		int result = qnaDAO.setReplyUpdate(parent);
+		
+		// 4. DB에 답글을 저장
+		result = qnaDAO.setReplyAdd(qnaDTO);
+		return result;
+	}
 }

@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Board Add</title>
+        <title>Board Reply</title>
         <!-- 사용전 경로를 꼭 수정하세요 -->
         <c:import url="../temps/head_css.jsp"></c:import>
     </head>
@@ -19,11 +19,14 @@
 			<c:import url="../temps/header.jsp"></c:import>
              <section class="py-5">
 					<div class="text-center mb-5">
-                        <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">Board Add</span></h1>
+                        <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">Board Reply</span></h1>
                     </div>
                     <div class="row gx-5 justify-content-center">
                         <div class="col-lg-11 col-xl-9 col-xxl-8">
-                        	<form action="./add" class="form-control" method="post" enctype="multipart/form-data">
+                        	<form action="./reply" class="form-control" method="post" enctype="multipart/form-data">
+                        		<!-- 어떤글에 대한 답글 -->
+                        		<input type="hidden" value="${dto.noticeNum}" name="noticeNum">
+                        	
 	                        	<div class="mb-3">
 								  <label for="title" class="form-label">Title</label>
 								  <input type="text" name="noticeTitle" class="form-control" id="title">
@@ -36,13 +39,6 @@
 								  <label for="contents" class="form-label">Textarea</label>
 								  <textarea class="form-control" name="noticeContents" id="contents" rows="3"></textarea>
 								</div>
-								
-								<div class="mb-3">
-									<input type="file" class="form-control" name="attachs">
-									<input type="file" class="form-control" name="attachs">
-									<input type="file" class="form-control" name="attachs">
-								</div>
-								
 								<div class="mb-3">
 									<button class="btn btn-primary">등록</button>
 								</div>

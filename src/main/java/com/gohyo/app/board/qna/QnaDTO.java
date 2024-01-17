@@ -9,8 +9,15 @@ public class QnaDTO extends BoardDTO{
 	private Long qnaRef;
 	private Long qnaStep;
 	private Long qnaDepth;
-	
+	private Integer flag;
 	private List<BoardFileDTO> fileDTOs;
+	
+	public Integer getFlag() {
+		return flag;
+	}
+	public void setFlag(Integer flag) {
+		this.flag = flag;
+	}
 	
 	public List<BoardFileDTO> getFileDTOs() {
 		return fileDTOs;
