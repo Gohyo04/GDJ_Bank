@@ -44,32 +44,27 @@ public class QnaDAO implements BoardDAO{
 	}
 	
 	@Override
-	public Long getTotal() throws Exception {
+	public Long getTotalCount(Pager pager) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public int doUpdate() throws Exception {
+	public int setUpdate(BoardDTO boardDTO) throws Exception {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int doDelete(BoardDTO boardDTO) throws Exception {
+	public int setDelete(BoardDTO boardDTO) throws Exception {
 		return sqlSession.update(NAMESPACE+"doDelete");
-	}
-
-	@Override
-	public List<BoardFileDTO> getListFiles(BoardDTO boardDTO) throws Exception {
-		return sqlSession.selectList(NAMESPACE+"getListFiles", boardDTO);
 	}
 
 	@Override
 	public int addFile(BoardFileDTO boardFileDTO) throws Exception {
 		return sqlSession.insert(NAMESPACE+"addFile", boardFileDTO);
 	}
-
+	@Override
 	public List<BoardFileDTO> getFileList(BoardDTO boardDTO) throws Exception{
 		return sqlSession.selectList(NAMESPACE+"getFileList",boardDTO);
 	}

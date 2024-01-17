@@ -64,7 +64,7 @@ public class QnaService implements BoardService{
 	}
 
 	@Override
-	public int setUpdate(BoardDTO boardDTO) throws Exception {
+	public int setUpdate(BoardDTO boardDTO, MultipartFile [] attachs) throws Exception {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -82,7 +82,7 @@ public class QnaService implements BoardService{
 		int result = qnaDAO.setFileDelete(boardDTO);
 		
 		// 3. qna의 정보를 수정
-		result = qnaDAO.doDelete(boardDTO);
+		result = qnaDAO.setDelete(boardDTO);
 		
 		return result;
 	}

@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.gohyo.app.board.BoardDAO;
 import com.gohyo.app.board.BoardDTO;
 import com.gohyo.app.board.BoardFileDTO;
 import com.gohyo.app.board.BoardService;
@@ -34,6 +33,7 @@ public class NoticeService implements BoardService{
 		pager.makeRow();
 		
 		// 검색
+		pager.makeNum(noticeDAO.getTotalCount(pager));
 		
 		return noticeDAO.getList(pager);
 	}
@@ -73,15 +73,23 @@ public class NoticeService implements BoardService{
 	}
 
 	@Override
-	public int setUpdate(BoardDTO boardDTO) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+	public int setUpdate(BoardDTO boardDTO, MultipartFile[] attachs) throws Exception {
+		return noticeDAO.setUpdate(boardDTO);
 	}
 
 	@Override
 	public int delete(BoardDTO boardDTO) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		List<BoardFileDTO> ar = noticeDAO.getFileList(boardDTO);
+		// 파일경로
+		String path = servletContext.getRealPath("/resources/update/notice");
+		// 경로,파일명으로 파일 삭제
+		for(BoardFileDTO b : ar) {
+			fileManager.fileDelete(path, b.getFileName());
+		}
+		noticeDAO.setFileDelete(boardDTO);
+		
+		int result = noticeDAO.setDelete(boardDTO);
+		return result;
 	}
 	
 	

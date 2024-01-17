@@ -35,7 +35,7 @@
 									<th>Title</th>
 									<th>Writer</th>
 									<th>Date</th>
-									<th>Hit</th>
+									<th>Count</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -63,10 +63,10 @@
 									</c:catch>
 									<c:if test="${f eq 0}">
 										<tr>
-											<td>${dto.boardNum}</td>
-											<td><a href="./detail?boardNum=${dto.noticeNum}"> <c:catch>
+											<td>${dto.noticeNum}</td>
+											<td><a href="./detail?noticeNum=${dto.noticeNum}"> <c:catch>
 														<c:forEach begin="1" end="${dto.qnaDepth}">--</c:forEach>
-													</c:catch> ${dto.boardTitle}
+													</c:catch> ${dto.noticeTitle}
 											</a></td>
 											<td>${dto.noticeWriter}</td>
 											<td>${dto.noticeDate}</td>
@@ -78,18 +78,68 @@
 							</tbody>
 						</table>
                         		
-                        		<div>
-                        			<a href="./add" class="btn btn-danger">글쓰기</a>
-                        		</div>
-                        		
-                        	</div>
-                        </div>
-                    </div>
-            </section>
-            
-        </main>
+						<div>
+							<form class="row g-3" action="./list">
+								<div class="col-auto">
+									<select name="kind" class="form-select"
+										aria-label="Default select example">
+										<option class="a" value="kind1">Title</option>
+										<option class="a" value="kind2">Contents</option>
+										<option class="a" value="kind3">Writer</option>
+										<option class="a" value="kind4">Title+Contents+Writer</option>
+									</select>
+								</div>
+
+								<div class="col-auto">
+									<label for="search" class="visually-hidden">Search</label> 
+									<input type="text" name="search" class="form-control" id="search">
+								</div>
+
+								<div class="col-auto">
+									<button type="submit" class="btn btn-primary mb-3">검색</button>
+								</div>
+							</form>
+						</div>
+
+						<div>
+							<nav aria-label="Page navigation example">
+								<ul class="pagination">
+									<c:if test="${!pager.start}">
+										<li class="page-item"><a class="page-link"
+											href="./list?page=${pager.startNum-1}&search=${pager.search}&kind=${pager.kind}"
+											aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+										</a></li>
+									</c:if>
+									<c:forEach begin="${pager.startNum}" end="${pager.lastNum}"
+										var="i">
+										<li class="page-item"><a class="page-link"
+											href="./list?page=${i}&search=${pager.search}&kind=${pager.kind}">${i}</a></li>
+									</c:forEach>
+
+									<c:if test="${!pager.last}">
+										<li class="page-item"><a class="page-link"
+											href="./list?page=${pager.lastNum+1}&search=${pager.search}&kind=${pager.kind}"
+											aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+										</a></li>
+									</c:if>
+								</ul>
+							</nav>
+						</div>
+
+						<div>
+							<a href="./add" class="btn btn-danger">글쓰기</a>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+		</section>
+
+	</main>
 	<!-- Footer-->
-	<!-- 사용전 경로를 꼭 수정하세요 -->
+	<!-- 사용전 경로를 꼭 수정 하세요 -->
 	<c:import url="../temps/footer.jsp"></c:import>
-    </body>
+
+</body>
 </html>
