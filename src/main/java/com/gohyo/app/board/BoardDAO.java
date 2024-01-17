@@ -9,15 +9,15 @@ public interface BoardDAO {
 	
 	public BoardDTO getDetail(BoardDTO boardDTO) throws Exception;
 	
-	public Long getTotal() throws Exception;
+	public Long getTotalCount(Pager pager) throws Exception;
 	
-	public int doUpdate() throws Exception;
+	public int setUpdate(BoardDTO boardDTO) throws Exception;
 	
-	public int doDelete(BoardDTO boardDTO) throws Exception;
+	public int setDelete(BoardDTO boardDTO) throws Exception;
 
 	public int setAdd(BoardDTO boardDTO) throws Exception;
 	
-	public List<BoardFileDTO> getListFiles(BoardDTO boardDTO)throws Exception;
+	public List<BoardFileDTO> getFileList(BoardDTO boardDTO)throws Exception;
 	
 	public int addFile(BoardFileDTO boardFileDTO)throws Exception;
 }

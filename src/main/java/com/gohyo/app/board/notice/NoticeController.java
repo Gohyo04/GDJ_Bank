@@ -22,27 +22,14 @@ public class NoticeController{
 	@Autowired
 	private BoardService noticeService;
 	
+	@ModelAttribute("bbs")
+	public Integer getKind() {
+		return 0;
+	}
+	
 	@ModelAttribute("board")
 	public String getBoard() {
 		return "notice";
-	}
-	
-	//list
-	//@RequestMapping(value="list", method = RequestMethod.GET)
-	@GetMapping("list")
-	public String getList(Model model, Pager pager) throws Exception{
-		List<BoardDTO> ar = noticeService.getList(pager);
-		
-		model.addAttribute("list",ar);
-		return "board/list";
-	}
-	
-	@GetMapping("detail")
-	public String getDetail(BoardDTO boardDTO, Model model) throws Exception{
-		boardDTO = noticeService.getDetail(boardDTO);
-		
-		model.addAttribute("boardDTO",boardDTO);
-		return "board/detail";
 	}
 	
 	@GetMapping("add")
@@ -56,6 +43,44 @@ public class NoticeController{
 		return "redirect:./list";
 	}
 	
+	//list
+	//@RequestMapping(value="list", method = RequestMethod.GET)
+	@GetMapping("list")
+	public String getList(Model model, Pager pager) throws Exception{
+		List<BoardDTO> ar = noticeService.getList(pager);
+		
+		model.addAttribute("list",ar);
+		model.addAttribute("pager",pager);
+		return "board/list";
+	}
+	
+	@GetMapping("detail")
+	public String getDetail(BoardDTO boardDTO, Model model) throws Exception{
+		boardDTO = noticeService.getDetail(boardDTO);
+		
+		model.addAttribute("boardDTO",boardDTO);
+		return "board/detail";
+	}
+	
+	@GetMapping("update")
+	public String setUpdate(BoardDTO boardDTO, Model model)throws Exception{
+		boardDTO = noticeService.getDetail(boardDTO);
+		model.addAttribute("boardDTO",boardDTO);
+		return "board/update";
+	}
+	
+	@PostMapping("update")
+	public String setUpdate(BoardDTO boardDTO, MultipartFile[] attachs)throws Exception{
+		int result = noticeService.setUpdate(boardDTO, attachs);
+		return "redirect:./detail?noticeNum="+boardDTO.getNoticeNum();
+	}
+	
+	
+	@PostMapping("delete")
+	public String setDelete(BoardDTO boardDTO) throws Exception{
+		int result = noticeService.delete(boardDTO);
+		return "redirect:./list";
+	}
 }
 
 

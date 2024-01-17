@@ -21,34 +21,7 @@
 					<div class="text-center mb-5">
                         <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">Board Add</span></h1>
                     </div>
-                    <div class="row gx-5 justify-content-center">
-                        <div class="col-lg-11 col-xl-9 col-xxl-8">
-                        	<form action="./add" class="form-control" method="post" enctype="multipart/form-data">
-	                        	<div class="mb-3">
-								  <label for="title" class="form-label">Title</label>
-								  <input type="text" name="noticeTitle" class="form-control" id="title">
-								</div>
-								<div class="mb-3">
-								  <label for="writer" class="form-label">Writer</label>
-								  <input type="text" name="noticeWriter" class="form-control" id="writer">
-								</div>
-								<div class="mb-3">
-								  <label for="contents" class="form-label">Textarea</label>
-								  <textarea class="form-control" name="noticeContents" id="contents" rows="3"></textarea>
-								</div>
-								
-								<div class="mb-3">
-									<input type="file" class="form-control" name="attachs">
-									<input type="file" class="form-control" name="attachs">
-									<input type="file" class="form-control" name="attachs">
-								</div>
-								
-								<div class="mb-3">
-									<button class="btn btn-primary">등록</button>
-								</div>
-							</form>
-                    	</div>
-                    </div>
+                    <c:import url="../temps/boardForm.jsp"></c:import>
             </section>
         </main>
 	<!-- Footer-->

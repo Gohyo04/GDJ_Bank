@@ -4,7 +4,7 @@ public class Pager {
 	
 	private Long startRow;
 	private Long lastRow;
-	private Long perPage=5L;//몇개씩 조회
+	private Long perPage=10L;//몇개씩 조회
 	private Long page;
 	
 	private Long totalPage;
@@ -15,6 +15,27 @@ public class Pager {
 	private boolean start;
 	//다음 블럭이 없으면 true;
 	private boolean last;
+
+	private String search;
+	private String kind;
+	
+	
+	
+	public String getSearch() {
+		return search;
+	}
+
+	public void setSearch(String search) {
+		this.search = search;
+	}
+
+	public String getKind() {
+		return kind;
+	}
+
+	public void setKind(String kind) {
+		this.kind = kind;
+	}
 
 	public void setStart(boolean start) {
 		this.start = start;
@@ -93,8 +114,11 @@ public class Pager {
 		this.lastRow=this.getPage()*this.getPerPage();
 		this.startRow=(this.getPage()-1)*this.getPerPage()+1;
 	}
-	
+		
 	public void makeNum(Long totalCount) {
+		if(totalCount<1) {
+			totalCount=1L;
+		}
 		Long totalPage=0L;
 		totalPage = totalCount/this.getPerPage();
 		
@@ -102,8 +126,9 @@ public class Pager {
 		if(totalCount%this.getPerPage() != 0) {
 			totalPage++;
 		}
+			
 		
-		this.setTotalPage(totalPage);
+	this.setTotalPage(totalPage);
 		
 		//2. 총블럭의 수 구하기
 		Long perBlock=5L;//블럭당 번호의 갯수

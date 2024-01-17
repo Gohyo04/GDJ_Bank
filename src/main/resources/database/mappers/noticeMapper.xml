@@ -6,16 +6,48 @@
   
   <mapper namespace="com.gohyo.app.board.notice.NoticeDAO">
   	
+  	<!-- sql search -->
+  	<sql id="search">
+  		<where>
+  			<if test="kind=='kind1'">
+  				NOTICETITLE LIKE '%'||#{search}||'%'
+  			</if>)
+  			<if test="kind=='kind2'">
+  				NOTICECONTENTS LIKE '%'||#{search}||'%'
+  			</if>
+  			<if test="kind=='kind3'">
+  				NOTICEWRITER LIKE '%'||#{search}||'%'
+  			</if>
+  		</where>
+  	</sql>
+  	
+  	<!-- file list -->  	
+  	<select id="getFileList" parameterType="BoardDTO" resultType="BoardFileDTO">
+  		SELECT FILENAME FROM NOTICEFILES WHERE NOTICENUM = #{noticeNum}
+  	</select>
+  	
   	<!-- FileAdd -->
   	<insert id="addFile" parameterType="BoardFileDTO">
-  		<selectKey keyProperty="noticeNum" resultType="Long">
+  		<selectKey keyProperty="fileNum" resultType="Long" order="BEFORE">
   			SELECT BOARD_SEQ.NEXTVAL FROM DUAL
   		</selectKey>
-  	
   		INSERT INTO NOTICEFILES 
   		(FILENUM, NOTICENUM, FILENAME, ORINAME)
   		VALUES
-  		(BOARD_SEQ.NEXTVAL, #{noticeNum}, #{fileName}, #{oriName}) 
+  		(#{fileNum}, #{noticeNum}, #{fileName}, #{oriName}) 
+  	</insert>
+  
+  	<delete id="setFileDelete" parameterType="BoardDTO">
+  		  DELETE NOTICEFILES WHERE NOTICENUM = #{noticeNum}
+  	</delete>
+  
+   	<!-- Add -->
+  	<insert id="setAdd" parameterType="NoticeDTO">
+  		<selectKey keyProperty="noticeNum" resultType="Long" order="BEFORE">
+  			SELECT BOARD_SEQ.NEXTVAL FROM DUAL
+  		</selectKey>
+  		INSERT INTO NOTICE (NOTICENUM, NOTICETITLE, NOTICEWRITER, NOTICECONTENTS, NOTICEDATE, NOTICECOUNT) 
+  		VALUES (#{noticeNum},#{noticeTitle},#{noticeWriter},#{noticeContents}, SYSDATE, 0)
   	</insert>
   
   	<select id="getList" resultType="NoticeDTO" parameterType="Pager">
@@ -53,13 +85,28 @@
   			WHERE NOTICENUM = #{noticeNum}
   	</select>
   	
-  	<insert id="setAdd" parameterType="NoticeDTO">
-  		<selectKey keyProperty="noticeNum" resultType="Long" order="BEFORE">
-  			SELECT BOARD_SEQ.NEXTVAL FROM DUAL
-  		</selectKey>
-  		INSERT INTO NOTICE (NOTICENUM, NOTICETITLE, NOTICEWRITER, NOTICECONTENTS, NOTICEDATE, NOTICECOUNT) 
-  		VALUES (#{noticeNum},#{noticeTitle},#{noticeWriter},#{noticeContents}, SYSDATE, 0)
-  	</insert>
+	<!-- count -->
+  	<select id="getTotalCount" resultType="Long" parameterType="Pager">
+  		SELECT COUNT(NOTICENUM) FROM NOTICE
+  		<!-- <include refid="search"></include> -->
+  	</select>
+  	
+	<update id="setUpdate" parameterType="BoardDTO">
+		UPDATE NOTICE
+		<set>
+			<if test="noticeTitle != null and noticeTitle != ''"></if>
+			NOTICETITLE=#{noticeTitle},
+			<if test="noticeContents != null">
+				NOTICECONTENTS=#{noticeContents}
+			</if>
+		</set>
+		WHERE NOTICENUM = #{noticeNum}
+	</update>
+  	
+  	<!-- Delete -->
+	<delete id="setDelete" parameterType="BoardDTO">
+		DELETE NOTICE WHERE NOTICENUM=#{noticeNum}
+	</delete>
   </mapper>
   
   
