@@ -26,55 +26,57 @@
                         <div class="col-lg-11 col-xl-9 col-xxl-8">
                         	<!-- table -->
                         	<div>
-                        		<table class="table table-hover">
-                        			<thead>
-                        				<tr class="table-warning">
-                        					<th>No</th>
-                        					<th>Title</th>
-                        					<th>Writer</th>
-                        					<th>Date</th>
-                        					<th>Hit</th>
-                        				</tr>
-                       				</thead>
-                       				<tbody>
-										<c:forEach items="${list}" var="i">
-										
-											<c:set var="f" value="0"></c:set>
-											<c:catch>
-												<c:set var="f" value="${dto.flag}"></c:set>
-												<c:if test="${f eq 0}"></c:if>
-												<tr>
-													<td></td>
-													<td>삭제되었다.</td>
-													<td></td>
-													<td></td>
-													<td></td>
-												</tr>
-												
-											</c:catch>
-											
-											<c:if test="${f eq 1}"></c:if>
-		                        				<tr>
-													<td>${i.noticeNum}</td>
-													<td>
-														<a href="./detail?noticeNum=${i.noticeNum}">
-															<c:catch>
-																<c:forEach begin="1" end="${i.qnaDepth}">--</c:forEach>														
-															</c:catch>
-																
-															${i.noticeTitle}
-														</a>
-													</td>
-													<td>${i.noticeWriter}</td>
-													<td>${i.noticeDate}</td>
-													<td>${i.noticeCount}</td>
-		                        				</tr>
-	                        				
-	                        			
-										</c:forEach>                     					
-                       				</tbody>
-                        			
-                        		</table>
+					<!-- table -->
+					<div>
+						<table class="table table-hover">
+							<thead>
+								<tr class="table-dark">
+									<th>No</th>
+									<th>Title</th>
+									<th>Writer</th>
+									<th>Date</th>
+									<th>Hit</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:if test="${list.size()==0}">
+									<tr>
+										<td colspan="4">검색결과 없습니다</td>
+									<tr>
+								</c:if>
+							
+								<c:forEach items="${list}" var="dto">
+									<c:set var="f" value="0"></c:set>
+
+									<c:catch>
+										<c:set var="f" value="${dto.flag}"></c:set>
+										<c:if test="${f eq 1}">
+											<tr>
+												<td></td>
+												<td>삭제되었다</td>
+												<td></td>
+												<td></td>
+												<td></td>
+											</tr>
+
+										</c:if>
+									</c:catch>
+									<c:if test="${f eq 0}">
+										<tr>
+											<td>${dto.boardNum}</td>
+											<td><a href="./detail?boardNum=${dto.noticeNum}"> <c:catch>
+														<c:forEach begin="1" end="${dto.qnaDepth}">--</c:forEach>
+													</c:catch> ${dto.boardTitle}
+											</a></td>
+											<td>${dto.noticeWriter}</td>
+											<td>${dto.noticeDate}</td>
+											<td>${dto.noticeCount}</td>
+										</tr>
+									</c:if>
+
+								</c:forEach>
+							</tbody>
+						</table>
                         		
                         		<div>
                         			<a href="./add" class="btn btn-danger">글쓰기</a>
