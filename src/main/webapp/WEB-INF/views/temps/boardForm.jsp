@@ -9,10 +9,10 @@
                             <label for="title" class="form-label">Title</label>
                             <input type="text" class="form-control" id="title" value="${boardDTO.noticeTitle}" name="noticeTitle">
                           </div>
-                          <div class="mb-3">
+<%--                           <div class="mb-3">
                             <label for="writer" class="form-label">Writer</label>
-                            <input type="text" value="${boardDTO.noticeWriter}" class="form-control" id="writer" name="noticeWriter">
-                          </div>
+                            <input type="text" value="${sessionScope.member.userName}" class="form-control" id="writer" name="noticeWriter">
+                          </div> --%>
                           <div class="mb-3">
                             <label for="contents" class="form-label">Contents</label>
                             <textarea class="form-control" id="contents" rows="3" name="noticeContents">${boardDTO.noticeContents}</textarea>

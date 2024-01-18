@@ -2,6 +2,8 @@ package com.gohyo.app.board.notice;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.gohyo.app.board.BoardDTO;
 import com.gohyo.app.board.BoardService;
+import com.gohyo.app.member.MemberDTO;
 import com.gohyo.app.util.Pager;
 
 @Controller
@@ -38,7 +41,9 @@ public class NoticeController{
 	}
 	
 	@PostMapping("add")
-	public String setAdd(BoardDTO boardDTO, MultipartFile [] attachs) throws Exception{
+	public String setAdd(BoardDTO boardDTO, MultipartFile [] attachs, HttpSession session) throws Exception{
+		MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
+		boardDTO.setNoticeWriter(memberDTO.getUserName());
 		int result = noticeService.setAdd(boardDTO, attachs);
 		return "redirect:./list";
 	}

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.gohyo.app.member.MemberDAO">
+  	<insert id="addUser" parameterType="com.gohyo.app.member.MemberDTO">
+  		INSERT INTO MEMBER (USERNAME, PASSWORD, NAME, EMAIL, PHONE, ADDRESS)
+  		VALUES (#{userName}, #{password}, #{name}, #{email}, #{phone}, #{address})
+  	</insert>
+  	
+  	<insert id="addFile" parameterType="AvatarDTO">
+  		INSERT INTO AVATAR (FILENUM, USERNAME, FILENAME, ORINAME)
+  		VALUES(BOARD_SEQ.NEXTVAL,#{userName} ,#{fileName} ,#{oriName})
+  	</insert>
+  	
+  	<select id="getDetail" parameterType="MemberDTO" resultMap="getDetailResult">
+  		SELECT * 
+  		FROM MEMBER
+  		OUTER LEFT JOIN AVATAR  
+  		USING(USERNAME)
+  		WHERE USERNAME = #{userName}
+  	</select>
+  	
+  	<resultMap type="MemberDTO" id="getDetailResult">
+  		<id column="USERNAME" property="userName"/>
+  		<result column="PASSWORD" property="password"/>
+  		<result column="NAME" property="name"/>
+  		<result column="EMAIL" property="email"/>
+  		<result column="PHONE" property="phone"/>
+  		<result column="ADDRESS" property="address"/>
+  		
+  		<association javaType="AvatarDTO" property="avatarDTO">
+  			<id column="FILENUM" property="fileNum"/>
+  			<result column="FILENAME" property="fileName"/>
+  			<result column="ORINAME" property="oriName"/>
+  		</association>
+  	</resultMap>
+  	
+  	
+  </mapper>

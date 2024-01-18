@@ -2,6 +2,8 @@ package com.gohyo.app.board.qna;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.gohyo.app.board.BoardDTO;
+import com.gohyo.app.member.MemberDTO;
 import com.gohyo.app.util.Pager;
 
 @Controller
@@ -38,7 +41,10 @@ public class QnaCotroller {
 	}
 	
 	@PostMapping("reply")
-	public String setReply(QnaDTO qnaDTO) throws Exception{
+	public String setReply(QnaDTO qnaDTO, HttpSession session) throws Exception{
+		MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
+		qnaDTO.setNoticeWriter(memberDTO.getUserName());
+		
 		int result = qnaService.setReply(qnaDTO);
 		
 		return "redirect:./list";
@@ -66,9 +72,11 @@ public class QnaCotroller {
 	}
 	
 	@PostMapping("add")
-	public String setAdd(BoardDTO boardDTO, MultipartFile [] attachs) throws Exception{
-		int result = qnaService.setAdd(boardDTO, attachs);
+	public String setAdd(BoardDTO boardDTO, MultipartFile [] attachs, HttpSession session) throws Exception{
+		MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
+		boardDTO.setNoticeWriter(memberDTO.getUserName());
 		
+		int result = qnaService.setAdd(boardDTO, attachs);
 		
 		return "redirect:./list";
 	}

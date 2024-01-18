@@ -11,7 +11,7 @@
   		<where>
   			<if test="kind=='kind1'">
   				NOTICETITLE LIKE '%'||#{search}||'%'
-  			</if>)
+  			</if>
   			<if test="kind=='kind2'">
   				NOTICECONTENTS LIKE '%'||#{search}||'%'
   			</if>
@@ -55,8 +55,8 @@
   		(
   			SELECT ROWNUM R, N.* FROM
 	  		(
-	  			SELECT * FROM NOTICE 
-	  		 	
+	  			SELECT * FROM NOTICE
+  				<include refid="search"></include>
 	  			ORDER BY NOTICENUM DESC
 	  		) N
 	  	)WHERE R BETWEEN #{startRow} AND #{lastRow}
@@ -71,9 +71,9 @@
   		<result column="NOTICECONTENTS" property="noticeContents"/>
   		
   		<collection property="fileDTOs" javaType="List" ofType="BoardFileDTO">
-  			<id property="fileNum" column="FILENUM"/>
-  			<result property="fileName" column="FILENAME"/>
-  			<result property="oriName" column="ORINAME"/>
+  			<id column="FILENUM" property="fileNum"/>
+  			<result column="FILENAME" property="fileName"/>
+  			<result column="ORINAME" property="oriName"/>
   		</collection>
   	</resultMap>
   	
@@ -88,7 +88,7 @@
 	<!-- count -->
   	<select id="getTotalCount" resultType="Long" parameterType="Pager">
   		SELECT COUNT(NOTICENUM) FROM NOTICE
-  		<!-- <include refid="search"></include> -->
+  		<include refid="search"></include>
   	</select>
   	
 	<update id="setUpdate" parameterType="BoardDTO">
