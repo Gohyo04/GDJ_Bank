@@ -5,15 +5,119 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="com.gohyo.app.board.notice.NoticeDAO">
+  	
+  	<!-- sql search -->
+  	<sql id="search">
+  		<where>
+  			<if test="kind=='kind1'">
+  				NOTICETITLE LIKE '%'||#{search}||'%'
+  			</if>
+  			<if test="kind=='kind2'">
+  				NOTICECONTENTS LIKE '%'||#{search}||'%'
+  			</if>
+  			<if test="kind=='kind3'">
+  				NOTICEWRITER LIKE '%'||#{search}||'%'
+  			</if>
+  		</where>
+  	</sql>
+  	
+  	<!-- file list -->  	
+  	<select id="getFileList" parameterType="BoardDTO" resultType="BoardFileDTO">
+  		SELECT FILENAME FROM NOTICEFILES WHERE NOTICENUM = #{noticeNum}
+  	</select>
+  	
+  	<!-- FileAdd -->
+  	<insert id="addFile" parameterType="BoardFileDTO">
+  		<selectKey keyProperty="fileNum" resultType="Long" order="BEFORE">
+  			SELECT BOARD_SEQ.NEXTVAL FROM DUAL
+  		</selectKey>
+  		INSERT INTO NOTICEFILES 
+  		(FILENUM, NOTICENUM, FILENAME, ORINAME)
+  		VALUES
+  		(#{fileNum}, #{noticeNum}, #{fileName}, #{oriName}) 
+  	</insert>
+  
+  	<delete id="setFileDelete" parameterType="BoardDTO">
+  		  DELETE NOTICEFILES WHERE NOTICENUM = #{noticeNum}
+  	</delete>
+  
+   	<!-- Add -->
+  	<insert id="setAdd" parameterType="NoticeDTO">
+  		<selectKey keyProperty="noticeNum" resultType="Long" order="BEFORE">
+  			SELECT BOARD_SEQ.NEXTVAL FROM DUAL
+  		</selectKey>
+  		INSERT INTO NOTICE (NOTICENUM, NOTICETITLE, NOTICEWRITER, NOTICECONTENTS, NOTICEDATE, NOTICECOUNT) 
+  		VALUES (#{noticeNum},#{noticeTitle},#{noticeWriter},#{noticeContents}, SYSDATE, 0)
+  	</insert>
+  
   	<select id="getList" resultType="NoticeDTO" parameterType="Pager">
   		SElECT * FROM
   		(
   			SELECT ROWNUM R, N.* FROM
 	  		(
-	  			SELECT * FROM NOTICE 
-	  		 	
+	  			SELECT * FROM NOTICE
+  				<include refid="search"></include>
 	  			ORDER BY NOTICENUM DESC
 	  		) N
 	  	)WHERE R BETWEEN #{startRow} AND #{lastRow}
   	</select>
+  	
+  	<resultMap type="NoticeDTO" id="getDetailResult">
+  		<id column="NOTICENUM" property="noticeNum"/>
+  		<result column="NOTICETITLE" property="noticeTitle"/>
+  		<result column="NOTICEWRITER" property="noticeWriter"/>
+  		<result column="NOTICEDATE" property="noticeDate"/>
+  		<result column="NOTICECOUNT" property="noticeCount"/>
+  		<result column="NOTICECONTENTS" property="noticeContents"/>
+  		
+  		<collection property="fileDTOs" javaType="List" ofType="BoardFileDTO">
+  			<id column="FILENUM" property="fileNum"/>
+  			<result column="FILENAME" property="fileName"/>
+  			<result column="ORINAME" property="oriName"/>
+  		</collection>
+  	</resultMap>
+  	
+	<select id="getDetail" parameterType="NoticeDTO" resultType="BoardDTO" resultMap="getDetailResult">
+ 		SELECT *  
+ 		FROM NOTICE N 
+  			LEFT JOIN NOTICEFILES NF
+  			USING (NOTICENUM)
+  			WHERE NOTICENUM = #{noticeNum}
+  	</select>
+  	
+	<!-- count -->
+  	<select id="getTotalCount" resultType="Long" parameterType="Pager">
+  		SELECT COUNT(NOTICENUM) FROM NOTICE
+  		<include refid="search"></include>
+  	</select>
+  	
+	<update id="setUpdate" parameterType="BoardDTO">
+		UPDATE NOTICE
+		<set>
+			<if test="noticeTitle != null and noticeTitle != ''"></if>
+			NOTICETITLE=#{noticeTitle},
+			<if test="noticeContents != null">
+				NOTICECONTENTS=#{noticeContents}
+			</if>
+		</set>
+		WHERE NOTICENUM = #{noticeNum}
+	</update>
+  	
+  	<!-- Delete -->
+	<delete id="setDelete" parameterType="BoardDTO">
+		DELETE NOTICE WHERE NOTICENUM=#{noticeNum}
+	</delete>
   </mapper>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+   
+  
+  

@@ -5,13 +5,103 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="com.gohyo.app.board.qna.QnaDAO">
+
+	<!-- File -->
+	<!-- Insert -->
+  	<insert id="addFile" parameterType="BoardFileDTO">
+	<selectKey keyProperty="fileNum" resultType="Long" order="BEFORE">
+		SELECT BOARD_SEQ.NEXTVAL FROM DUAL
+	</selectKey>
+		INSERT INTO QNAFILES (FILENUM, NOTICENUM, FILENAME, ORINAME)
+		VALUES(#{fileNum},#{noticeNum}, #{fileName}, #{oriName})
+	</insert>  
+  
+ 	 <!-- file List -->
+  	<select id="getFileList" parameterType="BoardDTO" resultType="FileDTO">
+  		SELECT FILENAME FROM QNAFILES WHERE NOTICENUM = #{noticeNum}
+  	</select>
+  
+  	<!-- file delete -->
+  	<delete id="setFileDelete" parameterType="BoardDTO">
+  		DELETE QNAFILES WHERE NOTICENUM = #{noticeNum}
+  	</delete>
+  	
+  	
+  
+
+  	<!-- reply -->
+  	<!-- reply add -->
+  	<insert id="setReplyAdd" parameterType="QnaDTO">
+  		<selectKey keyProperty="noticeNum" resultType="Long" order="BEFORE">
+  			SELECT BOARD_SEQ.NEXTVAL FROM DUAL
+  		</selectKey>
+  		INSERT INTO QNA (
+  		NOTICENUM, NOTICETITLE, NOTICEWRITER, NOTICECONTENTS, NOTICEDATE, NOTICECOUNT, 
+  		QNAREF, QNASTEP, QNADEAPTH, FLAG)
+  		VALUES (#{noticeNum},#{noticeTitle},#{noticeWriter},#{noticeContents}, SYSDATE, 0, 
+  		#{qnaRef}, #{qnaStep}, #{qnaDepth},0)
+  	</insert>
+  
+  	<!-- reply step update -->
+  	<update id="setReplyUpdate" parameterType="QnaDTO">
+  		UPDATE QNA SET QNASTEP = QNASTEP+1 
+  		WHERE QNAREF = #{qnaRef} AND QNASTEP > #{qnaStep}  
+  	</update>
+  	
+  	<!-- board -->
+  	<!-- insert -->
+ 	  <insert id="setAdd" parameterType="BoardDTO">
+  	  	<selectKey keyProperty="noticeNum" resultType="Long" order="BEFORE">
+  			SELECT BOARD_SEQ.NEXTVAL FROM DUAL
+  		</selectKey>
+  		INSERT INTO QNA (
+  		NOTICENUM, NOTICETITLE, NOTICEWRITER, NOTICECONTENTS, NOTICEDATE, NOTICECOUNT, 
+  		QNAREF, QNASTEP, QNADEPTH, FLAG
+  		) 
+  		VALUES (#{noticeNum},#{noticeTitle},#{noticeWriter},#{noticeContents}, SYSDATE, 0, 
+  		#{noticeNum}, 0, 0, 0)
+  	</insert>
+  	<!-- List -->
   	<select id="getList" resultType="QnaDTO" parameterType="Pager">
   		SELECT * FROM
 	  		(
 	  		SELECT ROWNUM R, Q.* FROM 
 	  			(
-	  			SELECT * FROM QNA ORDER BY NOTICENUM DESC
+	  			SELECT * FROM QNA 
+	  			
+	  			ORDER BY QNAREF DESC, QNASTEP ASC
 	  			) Q
 	  		)WHERE R BETWEEN #{startRow} AND #{lastRow}
   	</select>
+  	<!-- Detail -->
+  	<select id="getDetail" parameterType="QnaDTO" resultType="BoardDTO" resultMap="getDetailResult">
+ 		SELECT *  
+ 		FROM QNA Q 
+  			LEFT JOIN QNAFILES QF
+  			USING (NOTICENUM)
+  			WHERE NOTICENUM = #{noticeNum}
+  	</select>
+  	
+  	<resultMap type="QnaDTO" id="getDetailResult">
+  		<id column="NOTICENUM" property="noticeNum"/>
+  		<result column="NOTICETITLE" property="noticeTitle"/>
+  		<result column="NOTICEWRITER" property="noticeWriter"/>
+  		<result column="NOTICEDATE" property="noticeDate"/>
+  		<result column="NOTICECOUNT" property="noticeCount"/>
+  		<result column="NOTICECONTENTS" property="noticeContents"/>
+		<result column="QNAREF" property="qnaRef"/>
+  		<result column="QNASTEP" property="qnaStep"/>
+  		<result column="QNADEPTH" property="qnaDepth"/>
+  		
+  		<collection property="fileDTOs" javaType="List" ofType="BoardFileDTO">
+  			<id column="FILENUM" property="fileNum"/>
+  			<result column="FILENAME" property="fileName"/>
+  			<result column="oriName" property="oriName"/>
+  		</collection>
+  	</resultMap>
+  	<!-- Update -->
+  	 <update id="setDelete" parameterType="QnaDTO">
+  		UPDATE QNA SET FLAG = #{flag} WHERE NOTICENUM = #{noticeNum}
+  	</update>
+  	
   </mapper>
