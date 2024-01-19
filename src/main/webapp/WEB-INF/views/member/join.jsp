@@ -26,10 +26,15 @@
 				  <div class="mb-3">
 				    <label for="userName" class="form-label">ID</label>
 				    <input type="text" name="userName" class="form-control" id="userName">
+				    <span type="hidden">아이디를 입력해주세요</span>
 				  </div>
 				  <div class="mb-3">
 				    <label for="password" class="form-label">Password</label>
 				    <input type="password" name="password" class="form-control" id="password">
+				  </div>
+ 				  <div class="mb-3">
+				    <label for="passwordCh" class="form-label">Password</label>
+				    <input type="password" name="passwordCh" class="form-control" id="passwordCh">
 				  </div>
 				  <div class="mb-3">
 				    <label for="email" class="form-label">Email</label>
@@ -47,7 +52,7 @@
                   <div class="mb-3">
                      <input class="form-control" type="file" name="f">
                   </div>
-				  
+				  <input type="checkbox">
 				  <button type="submit" class="btn btn-primary">Submit</button>
 				</form>
 			</div>
