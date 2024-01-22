@@ -48,6 +48,11 @@ public class MemberService {
 		}
 		return m;
 	}
+	
+	public int setUpdate(MemberDTO memberDTO) throws Exception{
+		int result = memberDAO.setUpdate(memberDTO);
+		return result;
+	}
 }
 
 

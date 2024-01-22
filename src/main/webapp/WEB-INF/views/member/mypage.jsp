@@ -29,6 +29,9 @@
 				  	<a href="../resources/upload/join/${member.avatarDTO.fileName}">${member.avatarDTO.oriName}</a>
 				  </li>
 				</ul>
+				<div>
+					<a class="btn btn-primary" href="./update">수정</a>
+				</div>
             </div>
         </main>
 	<!-- Footer-->
