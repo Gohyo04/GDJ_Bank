@@ -11,6 +11,7 @@
         <title>Board Add</title>
         <!-- 사용전 경로를 꼭 수정하세요 -->
         <c:import url="../temps/head_css.jsp"></c:import>
+        <c:import url="../temps/summernote.jsp"></c:import>
     </head>
     <body class="d-flex flex-column h-100">
         <main class="flex-shrink-0">
@@ -27,5 +28,8 @@
 	<!-- Footer-->
 	<!-- 사용전 경로를 꼭 수정하세요 -->
 	<c:import url="../temps/footer.jsp"></c:import>
+	<script type="text/javascript">
+		$("#contents").summernote();
+	</script>
     </body>
 </html>
