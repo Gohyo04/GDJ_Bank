@@ -18,14 +18,16 @@ public class MemberController {
 	private MemberService memberService;
 	
 	@GetMapping("update")
-	public void setUpdate() throws Exception{}
+	public void setUpdate(HttpSession session, Model model) throws Exception{
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
+		memberDTO = memberService.getDetail(memberDTO);
+		model.addAttribute("member",memberDTO);
+	}
 	
 	@PostMapping("update")
 	public String setUpdate(HttpSession session, MemberDTO memberDTO) throws Exception{
 		MemberDTO m = (MemberDTO) session.getAttribute("member");
-		memberDTO.setUserName(memberDTO.getUserName());
-		memberDTO.setAvatarDTO(memberDTO.getAvatarDTO());
-		session.setAttribute("member", memberDTO);
+		memberDTO.setUserName(m.getUserName());		
 		int result = memberService.setUpdate(memberDTO);
 		
 		return "redirect:./mypage";
@@ -77,9 +79,10 @@ public class MemberController {
 	}
 	
 	@GetMapping("mypage")
-	public String myPage(HttpSession session, MemberDTO memberDTO) throws Exception{
-		memberDTO = (MemberDTO) session.getAttribute("member");
+	public void myPage(HttpSession session, Model model) throws Exception{
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member"); 
+		memberDTO = memberService.getDetail(memberDTO);
 		
-		return "member/mypage";
+		model.addAttribute("member",memberDTO);
 	}
 }

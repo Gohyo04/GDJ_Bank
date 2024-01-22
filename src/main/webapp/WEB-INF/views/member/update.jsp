@@ -26,11 +26,7 @@
 				  <div class="mb-3">
 				    <label for="userName" class="form-label">ID</label>
 				    <input type="text" disabled value="${member.userName}" name="userName" class="form-control" id="userName">
-				    <span type="hidden">아이디를 입력해주세요</span>
-				  </div>
-				  <div class="mb-3">
-				    <label for="password" class="form-label">Password</label>
-				    <input type="password" value="${member.password}" name="password" class="form-control" id="password">
+				    <span hidden>아이디를 입력해주세요</span>
 				  </div>
 				  <div class="mb-3">
 				    <label for="email" class="form-label">Email</label>
@@ -38,7 +34,7 @@
 				  </div>
 				  <div class="mb-3">
 				    <label for="phone" class="form-label">Phone</label>
-				    <input type="text" value="${memeber.phone}" name="phone" class="form-control" id="phone">
+				    <input type="text" value="${member.phone}" name="phone" class="form-control" id="phone">
 				  </div>
 				  <div class="mb-3">
 				    <label for="address" class="form-label">Address</label>

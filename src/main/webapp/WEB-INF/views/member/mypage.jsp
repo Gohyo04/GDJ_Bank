@@ -31,6 +31,8 @@
 				</ul>
 				<div>
 					<a class="btn btn-primary" href="./update">수정</a>
+					<a class="btn btn-primary" href="./updatePassword">비밀번호수정</a>
+					<a class="btn btn-danger" href="./delete">탈퇴</a>
 				</div>
             </div>
         </main>

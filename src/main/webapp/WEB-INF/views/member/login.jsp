@@ -33,7 +33,6 @@
 				    <input type="password" name="password" class="form-control" id="password">
 				  </div>
 				  
-				  
 				  <button type="submit" class="btn btn-primary">Submit</button>
 				</form>
 			</div>
