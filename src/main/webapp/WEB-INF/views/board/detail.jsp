@@ -51,8 +51,10 @@
 		                             	<a class="btn btn-primary" href="./reply?noticeNum=${boardDTO.noticeNum}">답글</a>
 		                            </div>
 	                           	</c:if>
+	                           	<c:if test="${boardDTO.noticeWriter eq member.userName}">
 	                             	<a id="update" href="./update" class="btn btn-info">Update</a>
                            			<a id="del" href="" class="btn btn-danger">Delete</a>
+                          		</c:if>
 		                           	<form id="frm" action="./update" method="get">
 		                           		<input type="hidden" name="noticeNum" value="${boardDTO.noticeNum}">
 		                           	</form>

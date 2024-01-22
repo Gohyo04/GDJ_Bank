@@ -5,7 +5,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="com.gohyo.app.member.MemberDAO">
-  	<insert id="addUser" parameterType="com.gohyo.app.member.MemberDTO">
+  	<insert id="addUser" parameterType="MemberDTO">
   		INSERT INTO MEMBER (USERNAME, PASSWORD, NAME, EMAIL, PHONE, ADDRESS)
   		VALUES (#{userName}, #{password}, #{name}, #{email}, #{phone}, #{address})
   	</insert>
@@ -38,5 +38,22 @@
   		</association>
   	</resultMap>
   	
-  	
+  	<update id="setUpdate" parameterType="MemberDTO">
+  		UPDATE MEMBER
+  		<set>
+  			<if test="name != null and name != ''">
+	  			NAME=#{name},
+  			</if>
+  			<if test="email != null and email != ''">
+  				EMAIL=#{email}, 
+  			</if>
+  			<if test="phone != null and phone != ''">
+  				PHONE=#{phone},
+  			</if>
+  			<if test="address != null and address != ''">
+  				ADDRESS=#{address}
+  			</if>
+		</set>
+  		WHERE USERNAME = #{userName}
+  	</update>
   </mapper>

@@ -18,42 +18,33 @@
             <!-- 사용전 경로를 꼭 수정하세요 -->
 			<c:import url="../temps/header.jsp"></c:import>
 			<div class="w-50 mx-auto">
-	            <form method="post" enctype="multipart/form-data">
-	            	<div class="mb-3">
+	            <form action="update" method="post" enctype="multipart/form-data">
+            	  <div class="mb-3">
 				    <label for="name" class="form-label">Name</label>
-				    <input type="text" name="name" class="form-control" id="name">
+				    <input type="text" value="${member.name}" name="name" class="form-control" id="name">
 				  </div>
 				  <div class="mb-3">
 				    <label for="userName" class="form-label">ID</label>
-				    <input type="text" name="userName" class="form-control" id="userName">
-				    <span type="hidden">아이디를 입력해주세요</span>
-				  </div>
-				  <div class="mb-3">
-				    <label for="password" class="form-label">Password</label>
-				    <input type="password" name="password" class="form-control" id="password">
-				  </div>
- 				  <div class="mb-3">
-				    <label for="passwordCh" class="form-label">Password</label>
-				    <input type="password" name="passwordCh" class="form-control" id="passwordCh">
+				    <input type="text" disabled value="${member.userName}" name="userName" class="form-control" id="userName">
+				    <span hidden>아이디를 입력해주세요</span>
 				  </div>
 				  <div class="mb-3">
 				    <label for="email" class="form-label">Email</label>
-				    <input type="email" name="email" class="form-control" id="email">
+				    <input type="email" value="${member.email}" name="email" class="form-control" id="email">
 				  </div>
 				  <div class="mb-3">
 				    <label for="phone" class="form-label">Phone</label>
-				    <input type="text" name="phone" class="form-control" id="phone">
+				    <input type="text" value="${member.phone}" name="phone" class="form-control" id="phone">
 				  </div>
 				  <div class="mb-3">
 				    <label for="address" class="form-label">Address</label>
-				    <input type="text" name="address" class="form-control" id="address">
+				    <input type="text" value="${member.address}" name="address" class="form-control" id="address">
 				  </div>
 				  
                   <div class="mb-3">
                      <input class="form-control" type="file" name="f">
                   </div>
-				  <input type="checkbox">
-				  <button type="submit" class="btn btn-primary">Submit</button>
+				  <button type="submit" class="btn btn-primary">수정</button>
 				</form>
 			</div>
         </main>
