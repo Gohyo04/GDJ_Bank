@@ -8,28 +8,35 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Board Add</title>
+        <title>Personal - Start Bootstrap Theme</title>
         <!-- 사용전 경로를 꼭 수정하세요 -->
         <c:import url="../temps/head_css.jsp"></c:import>
-        <c:import url="../temps/summernote.jsp"></c:import>
     </head>
     <body class="d-flex flex-column h-100">
         <main class="flex-shrink-0">
             <!-- Navigation-->
             <!-- 사용전 경로를 꼭 수정하세요 -->
 			<c:import url="../temps/header.jsp"></c:import>
-             <section class="py-5">
-					<div class="text-center mb-5">
-                        <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">Board Add</span></h1>
-                    </div>
-                    <c:import url="../temps/boardForm.jsp"></c:import>
-            </section>
+            
+            <div class="row gx-5 justify-content-center">
+               <div class="col-lg-11 col-xl-9 col-xxl-8">
+                   <form method="POST" enctype="multipart/form-data">
+                	<input type="text" hidden value="${dto.productNum}">
+
+                     <div class="mb-3">
+                       <label for="accountPw" class="form-label">Password</label>
+                       <input class="form-control" id="accountPw" name="accountPw"></input>
+                     </div>
+
+                     <div class="mb-3">
+                       <button class="btn btn-primary">가입</button>
+                     </div>
+                  </form>
+               </div>
+            </div>
         </main>
 	<!-- Footer-->
 	<!-- 사용전 경로를 꼭 수정하세요 -->
 	<c:import url="../temps/footer.jsp"></c:import>
-	<script type="text/javascript">
-		$("#contents").summernote();
-	</script>
     </body>
 </html>
