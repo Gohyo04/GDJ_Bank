@@ -32,7 +32,7 @@
     				<input type="hidden" name="productNum" value="${dto.productNum}">
     			</form>
     			<a class="btn btn-primary" href="../product/update?productNum=${dto.productNum}">수정</a>
-				<a class="btn btn-dark" href="../product/list">뒤로</a>
+				<a class="btn btn-dark" href="../account/add?productNum=${dto.productNum}">가입</a>
 			</div>
         </main>
 		<!-- Footer-->

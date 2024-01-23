@@ -14,6 +14,7 @@
   		<typeAlias type="com.gohyo.app.files.FileDTO" alias="FileDTO"/>
   		<typeAlias type="com.gohyo.app.member.MemberDTO" alias="MemberDTO"/>
   		<typeAlias type="com.gohyo.app.member.AvatarDTO" alias="AvatarDTO"/>
+  		<typeAlias type="com.gohyo.app.account.AccountDTO" alias="AccountDTO"/>
   		
   		<typeAlias type="com.gohyo.app.util.Pager" alias="Pager"/>
   		<typeAlias type="java.lang.Long" alias="Long"/>
