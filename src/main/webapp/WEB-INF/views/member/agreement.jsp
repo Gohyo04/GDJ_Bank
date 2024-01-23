@@ -30,19 +30,19 @@
 						  </label>
 						</div>
 						<div class="form-check">
-						  <input class="form-check-input checks" type="checkbox" value="" id="a1">
+						  <input class="form-check-input checks req" type="checkbox" value="" id="a1">
 						  <label class="form-check-label" for="a1">
 						    필수동의 1
 						  </label>
 						</div>
 						<div class="form-check">
-						  <input class="form-check-input checks" type="checkbox" value="" id="a2">
+						  <input class="form-check-input checks req" type="checkbox" value="" id="a2">
 						  <label class="form-check-label" for="a2">
 						    필수동의 2
 						  </label>
 						</div>
 						<div class="form-check">
-						  <input class="form-check-input checks" type="checkbox" value="" id="a3">
+						  <input class="form-check-input checks req" type="checkbox" value="" id="a3">
 						  <label class="form-check-label" for="a3">
 						    필수동의 3
 						  </label>
@@ -59,7 +59,10 @@
 						    선택동의 2
 						  </label>
 						</div>
-						
+						<br>
+						<div>
+							<a id="btn" class="btn btn-primary" href="./join">회원가입</a>
+						</div>
                   	</div>
                   </div>
            </section>
@@ -67,6 +70,6 @@
 	<!-- Footer-->
 	<!-- 사용전 경로를 꼭 수정하세요 -->
 		<c:import url="../temps/footer.jsp"></c:import>
-		<script type="text/javascript" src="../resources/js/agreement.js"></script>
+		<script type="text/javascript" src="../resources/js/member/agreement.js"></script>
     </body>
 </html>
