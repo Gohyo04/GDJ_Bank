@@ -64,7 +64,7 @@ btn.addEventListener("click", (e)=>{
     alert(m);
 });
 
-// const name = document.getElementById("name");
+// const nameIn = document.getElementById("name");
 // const userName = document.getElementById("userName");
 // const eamil = document.getElementById("email");
 // const phone = document.getElementById("phone");

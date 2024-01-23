@@ -26,7 +26,6 @@
 				  <div class="mb-3">
 				    <label for="userName" class="form-label">ID</label>
 				    <input type="text" name="userName" class="form-control" id="userName">
-				    <span type="hidden">아이디를 입력해주세요</span>
 				  </div>
 				  <div class="mb-3">
 				    <label for="password" class="form-label">Password</label>
