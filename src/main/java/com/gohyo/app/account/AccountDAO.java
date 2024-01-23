@@ -1,5 +1,7 @@
 package com.gohyo.app.account;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -16,7 +18,7 @@ public class AccountDAO {
 		return sqlSession.insert(NAMESPACE+"accountAdd", accountDTO);
 	}
 	
-	public AccountDTO myAccount(AccountDTO accountDTO) {
-		return sqlSession.selectOne(NAMESPACE+"myAccount", accountDTO);
+	public List<AccountDTO> myAccount(AccountDTO accountDTO) {
+		return sqlSession.selectList(NAMESPACE+"myAccount", accountDTO);
 	}
 }

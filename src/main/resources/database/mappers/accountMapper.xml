@@ -6,16 +6,24 @@
   
   <mapper namespace="com.gohyo.app.account.AccountDAO">
   	<insert id="accountAdd" parameterType="AccountDTO">
-  		INSERT INTO ACCOUNT (ACCOUNTNUM, ACCOUNTPW, ACCOUNTDATE, ACCOUNTBALANCE)
-  		VALUES(#{accountNum}, #{accountPw}, SYSDATE, 0)
+  		INSERT INTO ACCOUNT (ACCOUNTNUM, USERNAME,PRODUCTNUM, ACCOUNTPW, ACCOUNTDATE, ACCOUNTBALANCE)
+  		VALUES(#{accountNum}, #{userName}, #{productNum}, #{accountPw}, SYSDATE, 0)
   	</insert>
   	
   	<select id="myAccount" parameterType="AccountDTO" resultMap="myAccountResult">
-		SELECT *
-			FROM ACCOUNT AC
-			RIGHT OUTER JOIN PRODUCT PR
-			USING(PRODUCTNUM)
-		WHERE PRODUCTNUM = #{productNum};
+		SELECT * FROM
+			(
+			SELECT ROWNUM R, J.* FROM
+				(
+				SELECT *
+					FROM 
+					MEMBER M
+					LEFT JOIN 
+					ACCOUNT A
+					USING(USERNAME)
+				WHERE A.PRODUCTNUM = #{productNum}
+				)J
+		)WHERE R BETWEEN #{startRow} AND #{lastRow}
   	</select>
   	
   	<resultMap type="AccountDTO" id="myAccountResult">
@@ -26,9 +34,9 @@
   		<result column="ACCOUNTDATE" property="accountDate"/>
   		<result column="ACCOUNTBALANCE" property="accountBalance"/>
   		
-  		<association javaType="ProductDTO" property="productDTO">
+  		<collection javaType="ProductDTO" property="productDTO">
   			<id column="PRODUCTNAME" property="productName"/>
   			<result column="PRODUCTRATE" property="productRate"/>
-  		</association>
+  		</collection>
   	</resultMap>
   </mapper>

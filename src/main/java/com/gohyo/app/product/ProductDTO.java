@@ -2,6 +2,8 @@ package com.gohyo.app.product;
 
 import java.util.List;
 
+import com.gohyo.app.account.AccountDTO;
+
 public class ProductDTO {
 	private Long productNum;
 	private String productName;
@@ -11,7 +13,14 @@ public class ProductDTO {
 	private int  productSale;
 	private List<ProductFileDTO> productFileDTOs;
 	
+	private List<AccountDTO> accountDTOs;
 	
+	public List<AccountDTO> getAccountDTOs() {
+		return accountDTOs;
+	}
+	public void setAccountDTOs(List<AccountDTO> accountDTOs) {
+		this.accountDTOs = accountDTOs;
+	}
 	public List<ProductFileDTO> getProductFileDTOs() {
 		return productFileDTOs;
 	}
