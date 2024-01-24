@@ -3,17 +3,42 @@
 
 // const fileAdd = document.getElementById("fileAdd");
 // const fileList = document.getElementById("fileList");
+// const del =document.getElementById("del");
 
-// let c = 1;
-// fileAdd.addEventListener("click",()=>{
-//     if(c > 5){
-//         alert("파일은 5개 까지만");
+// let count = 0;
+// let max = 5;
+
+// fileList.addEventListener("click",(e)=>{
+//     console.log(e);
+//     console.log(e.target);
+//     console.log(e.currentTarget);
+//     if(e.target.classList.contains('del')){
+//         // e.target.parentNode.remove();
+//         let id = e.target.getAttribute("data-file-id");
+//         document.getElementById(id).remove();
+//         count--;
 //     }
+// });
+
+// let idx = 0;
+
+// fileAdd.addEventListener("click",()=>{
+//     idx++;
+//     if(count >= max){
+//         alert("파일은 5개 까지만");
+//         return;
+//     }
+
+//     count++;
+//     idx++;
 
 //     console.log("fileAdd")
 //     let div = document.createElement("div");
 //     let input = document.createElement("input");
 //     let span = document.createElement("span");
+
+//     div = document.createAttribute("id");
+//     div.value = "file"+idx;
 
 //     let t = document.createTextNode("X");
 
@@ -29,19 +54,31 @@
 
 //     span.className = "input-group-text text-danger del";
 
+//     n = document.createAttribute("data-file-id");
+//     n.value = "file"+idx;
+
+//     input.setAttributeNode(ac);
+//     div.appendChild(child);
+
 //     fileList.appendChild(div);
 //     div.appendChild(input);
 //     div.appendChild(span);
 //     span.appendChild(t);
 
-//     c++;
+
 // });
 
 
 
 // JQuery
+count = $("#fileList").attr("data-file-count");
+max = $("#fileList").attr("data-file-max");
 
-let cnt = 1;
+$("#fileList").on("click",".del", function(){
+    $(this).parent().remove();
+    count--;
+});
+
 $("#fileAdd").click(() => {
     // let element = '<div clas="input-group">';
     // element += '<input class="form-control" type="file" name="attachs">';
@@ -49,9 +86,10 @@ $("#fileAdd").click(() => {
     // element += '</div>';
     // $("#fileList").append(element);
 
-    if(cnt > 5){
+    if(count >= max){
         alert("파일은 5개 까지만");
-    }else{
+        return;
+    }
     
 
     let element = `                            
@@ -61,8 +99,8 @@ $("#fileAdd").click(() => {
     </div>`
 
     $("#fileList").append(element);
-    }
-    cnt++;
+    
+    count++;
 });
 
 $(".del").click(()=>{

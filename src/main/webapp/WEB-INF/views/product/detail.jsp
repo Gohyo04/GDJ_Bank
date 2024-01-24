@@ -33,11 +33,14 @@
     			</form>
     			<a class="btn btn-primary" href="../product/update?productNum=${dto.productNum}">수정</a>
 				<a class="btn btn-dark" href="../account/add?productNum=${dto.productNum}">가입</a>
+				<button class="btn btn-primary" id="wish" href="">WISHLIST</button>
+				<input value="${dto.productNum}" id="productNum" type="hidden">
 			</div>
         </main>
 		<!-- Footer-->
 		<!-- 사용전 경로를 꼭 수정하세요 -->
 		<c:import url="../temps/footer.jsp"></c:import>
 		<script src="../resources/js/scripts.js"></script>
+		<script src="../../../resources/js/wishlist/wishlist.js"></script>
     </body>
 </html>

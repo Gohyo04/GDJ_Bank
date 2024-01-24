@@ -18,7 +18,8 @@
                             <textarea class="form-control" id="contents" rows="3" name="noticeContents">${boardDTO.noticeContents}</textarea>
                           </div>
 
-                          <div class="mb-3" id="fileList">
+                          <div class="mb-3" id="fileList" data-file-count="0" data-file-max="5">
+                            <button type="button" class="del">DEL</button>
                             <button type="button" id="fileAdd">파일추가</button>
                           </div>
 
