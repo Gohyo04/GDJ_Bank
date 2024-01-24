@@ -42,7 +42,7 @@
 								<%-- 상품명, 계좌번호, 잔액, 이자율, 가입일 --%>
 								<%-- <c:forEach items="${list}" var="dto"> --%>
 									<tr>
-										<td>${dto.productNum}</td>
+										<td>${dtos.productNum}</td>
 									</tr>
 								<%-- </c:forEach> --%>
 							</tbody>

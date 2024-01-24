@@ -10,33 +10,37 @@
   		VALUES(#{accountNum}, #{userName}, #{productNum}, #{accountPw}, SYSDATE, 0)
   	</insert>
   	
-  	<select id="myAccount" parameterType="AccountDTO" resultMap="myAccountResult">
+  	<select id="myAccount" parameterType="Map" resultMap="myAccountResult">
 		SELECT * FROM
 			(
-			SELECT ROWNUM R, J.* FROM
+			SELECT ROWNUM R, PA.* FROM
 				(
 				SELECT *
 					FROM 
-					MEMBER M
+					PRODUCT P
 					LEFT JOIN 
 					ACCOUNT A
-					USING(USERNAME)
-				WHERE A.PRODUCTNUM = #{productNum}
-				)J
+					USING(PRODUCTNUM)
+				WHERE A.USERNAME = #{userName}
+				) PA
 		)WHERE R BETWEEN #{startRow} AND #{lastRow}
   	</select>
   	
   	<resultMap type="AccountDTO" id="myAccountResult">
-  		<id column="ACCOUNTNUM" property="accountNum"/>
+  		<id column="ACCOUNTNUM" property="accountNum"/>  		
   		<result column="USERNAME" property="userName"/>
-  		<result column="PRODUCTNUM" property="productNum"/>
   		<result column="ACCOUNTPW" property="accountPw"/>
   		<result column="ACCOUNTDATE" property="accountDate"/>
   		<result column="ACCOUNTBALANCE" property="accountBalance"/>
   		
   		<collection javaType="ProductDTO" property="productDTO">
-  			<id column="PRODUCTNAME" property="productName"/>
+  			<id column="PRODUCTNUM" property="productNum"/>
+  			<result column="PRODUCTNAME" property="productName"/>
+  			<result column="PRODUCTCONTENTS" property="productContents"/>
   			<result column="PRODUCTRATE" property="productRate"/>
+  			<result column="PRODUCTJUMSU" property="productJumsu"/>
+  			<result column="PRODUCTCOUNT" property="productCount"/>
+  			<result column="PRODUCTSALE" property="productSale"/>
   		</collection>
   	</resultMap>
   </mapper>

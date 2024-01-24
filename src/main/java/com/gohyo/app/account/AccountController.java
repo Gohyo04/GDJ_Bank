@@ -1,5 +1,7 @@
 package com.gohyo.app.account;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.gohyo.app.product.ProductDTO;
+import com.gohyo.app.util.Pager;
 
 @Controller
 @RequestMapping(value = "account")
@@ -40,10 +45,10 @@ public class AccountController {
 	
 	
 	@GetMapping("list")
-	public String accountList(AccountDTO accountDTO, Model model) {
-		accountService.myAccount(accountDTO);
+	public String accountList(Model model, Pager pager,ProductDTO productDTO) {
+		List<AccountDTO> ar = accountService.myAccount(pager, productDTO);
 		
-		model.addAttribute("dto",accountDTO);
+		model.addAttribute("dtos",ar);
 		return "account/list";
 	}
 }
