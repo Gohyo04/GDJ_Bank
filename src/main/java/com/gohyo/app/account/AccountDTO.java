@@ -1,6 +1,9 @@
 package com.gohyo.app.account;
 
 import java.sql.Date;
+import java.util.List;
+
+import com.gohyo.app.product.ProductDTO;
 
 public class AccountDTO {
 	private Long accountNum;
@@ -10,7 +13,16 @@ public class AccountDTO {
 	private Date accountDate;
 	private Long accountBalance;
 	
+	private List<ProductDTO> productDTOs;
 	
+	
+	
+	public List<ProductDTO> getProductDTOs() {
+		return productDTOs;
+	}
+	public void setProductDTOs(List<ProductDTO> productDTOs) {
+		this.productDTOs = productDTOs;
+	}
 	public Long getAccountNum() {
 		return accountNum;
 	}

@@ -16,7 +16,9 @@
   		<typeAlias type="com.gohyo.app.member.AvatarDTO" alias="AvatarDTO"/>
   		<typeAlias type="com.gohyo.app.account.AccountDTO" alias="AccountDTO"/>
   		
+  		
   		<typeAlias type="com.gohyo.app.util.Pager" alias="Pager"/>
   		<typeAlias type="java.lang.Long" alias="Long"/>
+  		<typeAlias type="java.util.Map" alias="Map"/>
   	</typeAliases>
   </configuration>
