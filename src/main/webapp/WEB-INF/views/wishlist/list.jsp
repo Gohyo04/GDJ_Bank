@@ -25,7 +25,7 @@
            		</div>
                 <div>
 					<div>
-						<button class="btn btn-danger" id="del">삭제</button>
+						<button class="btn btn-danger" type="button" id="del">삭제</button>
 					</div>
 
                 	<table class="table">
@@ -44,7 +44,7 @@
 					      <th scope="col">PRODUCTRATE</th>
 					    </tr>
 					  </thead>
-					  <tbody class="table-group-divider">
+					  <tbody id="tb" class="table-group-divider">
 					<c:forEach items="${list}" var="dto">
 						<tr>
 							<td>

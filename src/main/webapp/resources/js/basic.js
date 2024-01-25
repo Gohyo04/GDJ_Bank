@@ -1,7 +1,7 @@
 
 
 
-let btn1 = document.getElementById("btn1");
+let btn1 = document.getElementById("btn");
 let btn2 = document.getElementById("btn2");
 
 
