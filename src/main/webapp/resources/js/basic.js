@@ -1,11 +1,11 @@
 
 
 
-let btn = document.getElementById("btn");
+let btn1 = document.getElementById("btn1");
 let btn2 = document.getElementById("btn2");
 
 
-btn.addEventListener("click",()=>{
+btn1.addEventListener("click",()=>{
     console.log("Ajax 시작");
 
     fetch("/notice/list", {

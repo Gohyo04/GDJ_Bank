@@ -9,4 +9,23 @@
   		INSERT INTO WISHLIST (PRODUCTNUM, USERNAME) 
   		VALUES (#{productNum}, #{userName})
   	</insert>
+  	
+  	<select id="getWishlist" parameterType="MemberDTO" resultType="ProductDTO">
+  		SELECT PRODUCTNUM, USERNAME,PRODUCTNAME,PRODUCTRATE 
+			FROM WISHLIST W
+			LEFT OUTER JOIN PRODUCT P
+			USING(PRODUCTNUM)
+			WHERE USERNAME = #{userName}
+  	</select>
+  	
+  	<delete id="deleteWish" parameterType="Map">
+  		DELETE WISHLIST 
+  		WHERE 
+  		<!-- PRODUCTNUM IN ( , , , ) -->
+  		PRODUCTNUM IN
+  		 <foreach collection="nums" item="n" open="(" separator="," close=")">
+  		 	#{n}
+  		 </foreach>
+	  	AND USERNAME = #{member.userName}
+  	</delete>
   </mapper>

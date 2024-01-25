@@ -106,17 +106,36 @@ $('#joinBtn').click(()=>{
 });
 
 $("#userName").blur(()=>{
-    fetch("./idCheck?userName="+$('#userName').val(),{
-        method:"GET"
-    })
-    .then(response => response.text())
-    .then(response => response.trim())
-    .then(response => {
-        if(response == 1){
+//     fetch("./idCheck?userName="+$('#userName').val(),{
+//         method:"GET"
+//     })
+//     .then(response => response.text())
+//     .then(response => response.trim())
+//     .then(response => {
+//         if(response == 1){
             
-        }else{
+//         }else{
 
+//         }
+// })
+    // JQuery    
+    // $.get("idCheck?userName="+$('#userName').val(), function(response){
+    //     console.log(response);
+    // })
+
+    let userNamet = $('#userName').val();
+    $.ajax({
+        url:"./idCheck",
+        method:"GET",
+        data:{
+            userName:userNamet
+        },
+        success:function(data){
+            console.log(data);
+        },
+        error:function(){
+            alert('ID 검증 실패');
         }
-})
-    
+    });
+
 });
