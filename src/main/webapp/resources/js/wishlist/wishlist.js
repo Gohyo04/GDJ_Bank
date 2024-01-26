@@ -4,6 +4,8 @@
  const checkAll = document.getElementById("checkAll");
  const checklist = document.getElementsByClassName("checks");
  const delBtn = document.getElementById("del");
+
+
 // console.log(checkAll);
 //  checkAll.addEventListener("click",()=>{
 //     console.log(checkAll.value)
@@ -39,7 +41,7 @@
     $('.checks').prop("checked", v);
 });
 
-$('.checks').click(function(){
+$('#tb').on("click","checks",function(){
     let flag=true;
     
     $('.checks').each(function(idx, c){
@@ -63,6 +65,11 @@ $('.checks').click(function(){
 //     console.log(ar);
 // });
 
+$("#add").click(function(){
+    $("#deleteForm").attr("action","../account/add")
+    $("#deleteForm").submit();
+});
+
 $("#del").click(()=>{
     let ar = [];
     $(".checks").each((index, item)=>{
@@ -71,13 +78,48 @@ $("#del").click(()=>{
         }
     });
 
+    deleteWithJquery(ar);
+    //deleteWithFetch(ar);
+    console.log(ar);
+});
+
+function deleteWithFetch(ar){
+
+    // let param = "";
+    // ar.forEach(element => {
+    //   param=param+"productNum="+element+"&";
+    // });
+
+    let deleteForm = document.getElementById("deleteForm");
+
+    let form = new FormData(deleteForm);
+
+    fetch("./delete",{
+        method:"POST",
+        // headers:{
+        //     "Content-type":"application/x-www-form-urlencoded"
+        // },
+        //body:"productNum="+ar,
+        body:form
+    })
+    .then(response => response.text())
+    .then(response=>{
+        console.log(response)
+        $("#tb").html(response.trim());
+    });
+}
+
+
+function deleteWithJquery(ar){
+
+    let form = new FormData($("#deleteForm")[0]);
     $.ajax({
         method:"POST",
         url:"./delete",
         traditional:true,       // 배열을 넘길때 사용
-        data:{
-            productNum:ar
-        },
+        contentType:false,
+        processData:false,
+        data:form,
         success:function(result){
             // if(result > 0){
                 //1.
@@ -96,8 +138,7 @@ $("#del").click(()=>{
             alert("알수없는 에러");
         }
     })
-    console.log(ar);
-});
+}
 
 //  $('#wish').click(()=>{
 //     fetch("/wishlist/add?productNum="+$('#productNum').val(),{

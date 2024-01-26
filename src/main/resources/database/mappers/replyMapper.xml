@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gohyo.app.product.ReplyDAO">
+	<insert id="setReply" parameterType="ReplyDTO">
+		INSERT INTO REPLY (COMMENTNUM, PRODUCTNUM, USERNAME, COMMENTCONTENTS, COMMENTDATE, COMMENTJUMSU)
+		VALUES(PF_SEQ.NEXTVAL,#{productNum},#{userName},#{commentContents},SYSDATE,#{commentJumsu})
+	</insert>
+	
+	<select id="getTotalCount" parameterType="ReplyDTO" resultType="Long">
+		SELECT COUNT(COMMENTNUM) FROM REPLY
+		WHERE PRODUCTNUM = #{productNum}
+	</select>
+	
+	<select id="getReplyList" parameterType="ReplyDTO" resultType="Map">
+		SELECT * FROM
+		(SELECT ROWNUM RN, R.* FROM
+		(SELECT * FROM REPLY 
+		WHERE PRODUCTNUM = #{replyDTO.productNum}
+		ORDER BY COMMENTNUM DESC) R
+		)WHERE 
+	</select>
+</mapper>

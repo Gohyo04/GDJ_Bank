@@ -12,35 +12,97 @@
         <!-- 사용전 경로를 꼭 수정하세요 -->
         <c:import url="../temps/head_css.jsp"></c:import>
     </head>
-    <body class="d-flex flex-column h-100">
-        <main class="flex-shrink-0">
-            <!-- Navigation-->
-            <!-- 사용전 경로를 꼭 수정하세요 -->
+	<body class="d-flex flex-column h-100">
+		<main class="flex-shrink-0">
+			<!-- 사용전 경로를 꼭 수정하세요  -->
+			<!-- Navigation-->
 			<c:import url="../temps/header.jsp"></c:import>
-            <div class="container px-5">
-            	<c:if test="${not empty dto}">
-            		<ul class="list-group list-group-flush style="list-style: none">
-					  <li class="list-group-item">${dto.productNum}</li>
-					  <li class="list-group-item">${dto.productName}</li>
-					  <li class="list-group-item">${dto.productContents}</li>
-					  <li class="list-group-item">${dto.productRate}</li>
-					</ul>
-            	</c:if>
-           	
-    			<a id="del" class="btn btn-danger w-1">삭제</a>
-    			<form id="frm" action="./delete" method="post">
-    				<input type="hidden" name="productNum" value="${dto.productNum}">
-    			</form>
-    			<a class="btn btn-primary" href="../product/update?productNum=${dto.productNum}">수정</a>
-				<a class="btn btn-dark" href="../account/add?productNum=${dto.productNum}">가입</a>
-				<button class="btn btn-primary" id="wish" href="">WISHLIST</button>
-				<input value="${dto.productNum}" id="productNum" type="hidden">
+			<div class="container px-5 my-5">
+				<div class="text-center mb-5">
+	
+					<div class="container-lg">
+						<c:if test="${not empty dto}">
+							<table class="table table-hover">
+								<thead>
+									<tr class="table-dark">
+										<th>Product Num</th>
+										<th>Product Name</th>
+										<th>Product Contents</th>
+										<th>Product Rate</th>
+										<th>Product Jumsu</th>
+										<th>Product File</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>${dto.productNum}</td>
+										<td>${dto.productName}</td>
+										<td>${dto.productContents}</td>
+										<td>${dto.productRate}</td>
+										<td>${dto.productJumsu}</td>
+										<td>
+											<c:forEach items="${dto.productFileDTOs}" var="f">
+												<a href="/resources/upload/product/${f.fileName}">${f.oriName}</a>
+												<br>
+											</c:forEach>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<button class="btn btn-light" id="up"
+								data-product-num="${detail.productNum}">수정</button>
+							<button class="btn btn-light" id="del">삭제</button>
+							<c:if test="${member ne null}">
+								<button class="btn btn-light" id="create">상품가입</button>
+								<button class="btn btn-light" id="wishList">관심상품</button>
+							</c:if>
+							<form id="frm" action="./update" method="get">
+								<input type="hidden" name="productNum"
+									value="${dto.productNum}">
+							</form>
+						</c:if>
+						<c:if test="${empty dto}">
+							<h3>없는 상품번호 입니다</h3>
+						</c:if>
+					</div>
+	
+					<div class="my-3" id="replyList">
+	
+					</div>
+	
+					<div class="my-3">
+						<form id="replyForm">
+							  <input type="hidden" name="productNum" value="${dto.productNum}">	
+							  <div class="mb-3">
+								<textarea class="form-control" name="commentContents" id="commentContents" rows="3"></textarea>
+							  </div>
+							  <div class="mb-3">
+							  <select class="form-select" name="commentJumsu" aria-label="Default select example">
+								<option value="5">5</option>
+								<option value="4">4</option>
+								<option value="3">3</option>
+								<option value="2">2</option>
+								<option value="1">1</option>
+							  </select>
+							  </div>
+	
+							  <div>
+								<button type="button" class="btn btn-primary" id="replyAdd">댓글달기</button>
+							  </div>
+						</form>
+	
+					</div>
+	
+				</div>
+	
 			</div>
-        </main>
-		<!-- Footer-->
-		<!-- 사용전 경로를 꼭 수정하세요 -->
+		</main>
+		<!-- 사용전 경로를 꼭 수정하세요  -->
+		<!-- Footer  -->
 		<c:import url="../temps/footer.jsp"></c:import>
 		<script src="../resources/js/scripts.js"></script>
 		<script src="../../../resources/js/wishlist/wishlist.js"></script>
-    </body>
+		<script src="../../../resources/js/productDetail.js"></script>
+	</body>
 </html>
+
