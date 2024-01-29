@@ -21,10 +21,6 @@ public class ProductController{
 	@Autowired
 	private ProductService productService;
 	
-	@Autowired
-	private ReplyService replyService;
-
-	
 	@RequestMapping(value="detail", method = RequestMethod.GET)
 	public String getDetail(Model model, ProductDTO productDTO, ReplyDTO replyDTO, HttpSession session) throws Exception{
 		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
@@ -32,15 +28,11 @@ public class ProductController{
 		
 		model.addAttribute("dto", productDTO);
 		
-		// 처음 가지고 올때만 댓글 목록도 조회
-		//ReplyDTO replyDTO = new ReplyDTO();
-		Pager pager = new Pager();
-		replyService.getList(pager, replyDTO);
-		List<ReplyDTO> replyList = replyService.getList(pager, replyDTO);
-		
-		model.addAttribute("pager",pager);
-		model.addAttribute("replyList", replyList);
-		
+		// [
+		//  {"userName":"???", "contents:???", "data:???"},
+		//  {"userName":"???", "contents:???", "data:???"},
+		//  {"userName":"???", "contents:???", "data:???"}
+		// ]
 		return "product/detail";
 	}
 	

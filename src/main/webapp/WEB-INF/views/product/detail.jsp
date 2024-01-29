@@ -76,21 +76,13 @@
 								<th></th>
 							</tr>
 						</table>
-						<tbody id="replyList">
-							// 처음에 불러와줄 forEach
-							<c:forEach items="${replyList}" var="r">
-								<tr>
-									<td>${r.commentContents}</td>
-									<td>${r.commentWriter}</td>
-									<td>${r.commentDate}</td>
-									<td><c:if test="${r.userName eq member.userName}"><button>삭제</button></c:if></td>
-									<td><c:if test="${r.userName eq member.userName}"><button>수정</button></c:if></td>
-								</tr>
-							</c:forEach>
+
+						<tbody id="replyList" data-user="${member.userName}">
+							
 						</tbody>
 
 						<div>
-							<button id="more" data-replyList-page="${pager.page}" data-replyList-totalPage="${pager.totalPage}">더보기</button>
+							<button id="more" data-replyList-page="1" data-replyList-totalPage="1">더보기</button>
 						</div>
 					</div>
 	
