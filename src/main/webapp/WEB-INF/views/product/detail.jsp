@@ -66,8 +66,32 @@
 						</c:if>
 					</div>
 	
-					<div class="my-3" id="replyList">
-	
+					<div class="my-3">
+						<table>
+							<tr>
+								<th>Contents</th>
+								<th>Writer</th>
+								<th>Date</th>
+								<th></th>
+								<th></th>
+							</tr>
+						</table>
+						<tbody id="replyList">
+							// 처음에 불러와줄 forEach
+							<c:forEach items="${replyList}" var="r">
+								<tr>
+									<td>${r.commentContents}</td>
+									<td>${r.commentWriter}</td>
+									<td>${r.commentDate}</td>
+									<td><c:if test="${r.userName eq member.userName}"><button>삭제</button></c:if></td>
+									<td><c:if test="${r.userName eq member.userName}"><button>수정</button></c:if></td>
+								</tr>
+							</c:forEach>
+						</tbody>
+
+						<div>
+							<button id="more" data-replyList-page="${pager.page}" data-replyList-totalPage="${pager.totalPage}">더보기</button>
+						</div>
 					</div>
 	
 					<div class="my-3">

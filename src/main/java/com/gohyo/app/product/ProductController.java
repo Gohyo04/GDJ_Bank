@@ -20,6 +20,9 @@ public class ProductController{
 	
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private ReplyService replyService;
 
 	
 	@RequestMapping(value="detail", method = RequestMethod.GET)
@@ -27,8 +30,16 @@ public class ProductController{
 		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
 		productDTO = productService.getDetail(productDTO,replyDTO);
 		
-		replyDTO.setUserName(memberDTO.getUserName());
 		model.addAttribute("dto", productDTO);
+		
+		// 처음 가지고 올때만 댓글 목록도 조회
+		//ReplyDTO replyDTO = new ReplyDTO();
+		Pager pager = new Pager();
+		replyService.getList(pager, replyDTO);
+		List<ReplyDTO> replyList = replyService.getList(pager, replyDTO);
+		
+		model.addAttribute("pager",pager);
+		model.addAttribute("replyList", replyList);
 		
 		return "product/detail";
 	}
