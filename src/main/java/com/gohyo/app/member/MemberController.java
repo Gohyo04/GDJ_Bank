@@ -5,10 +5,13 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.gohyo.app.errors.MemberLoginException;
 
 @Controller
 @RequestMapping(value = "member")
@@ -57,6 +60,13 @@ public class MemberController {
 	@GetMapping("login")
 	public void getLogin() throws Exception{
 		
+	}
+	
+	@ExceptionHandler(MemberLoginException.class)
+	public String memberLoginException(Model model,Exception e) {
+		String msg = e.getMessage();
+		model.addAttribute("msg",msg);
+		return "member/login";
 	}
 	
 	@PostMapping("login")

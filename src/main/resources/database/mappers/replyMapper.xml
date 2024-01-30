@@ -15,12 +15,22 @@
 		WHERE PRODUCTNUM = #{productNum}
 	</select>
 	
-	<select id="getReplyList" parameterType="ReplyDTO" resultType="Map">
+	<select id="getReplyList" parameterType="Map" resultType="ReplyDTO">
 		SELECT * FROM
-		(SELECT ROWNUM RN, R.* FROM
-		(SELECT * FROM REPLY 
-		WHERE PRODUCTNUM = #{replyDTO.productNum}
-		ORDER BY COMMENTNUM DESC) R
-		)WHERE 
+			(SELECT ROWNUM RN, R.* FROM
+				(
+				SELECT * FROM REPLY 
+				WHERE PRODUCTNUM = #{replyDTO.productNum}
+				ORDER BY COMMENTNUM DESC
+				) R
+		)WHERE RN BETWEEN #{pager.startRow} AND #{pager.lastRow}
 	</select>
+	
+	<update id="setUpdate">
+		UPDATE REPLY SET (COMMENTCONTENTS = #{commentContents}) WHERE COMMENTNUM=#{commentNum}
+	</update>
+	
+	<delete id="setDelete" parameterType="ReplyDTO">
+		DELETE REPLY WHERE COMMNETNUM = #{commentNum}
+	</delete>
 </mapper>

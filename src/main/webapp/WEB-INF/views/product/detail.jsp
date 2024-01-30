@@ -76,21 +76,13 @@
 								<th></th>
 							</tr>
 						</table>
-						<tbody id="replyList">
-							// 처음에 불러와줄 forEach
-							<c:forEach items="${replyList}" var="r">
-								<tr>
-									<td>${r.commentContents}</td>
-									<td>${r.commentWriter}</td>
-									<td>${r.commentDate}</td>
-									<td><c:if test="${r.userName eq member.userName}"><button>삭제</button></c:if></td>
-									<td><c:if test="${r.userName eq member.userName}"><button>수정</button></c:if></td>
-								</tr>
-							</c:forEach>
+
+						<tbody id="replyList" data-user="${member.userName}">
+							
 						</tbody>
 
 						<div>
-							<button id="more" data-replyList-page="${pager.page}" data-replyList-totalPage="${pager.totalPage}">더보기</button>
+							<button id="more" data-replyList-page="1" data-replyList-totalPage="1">더보기</button>
 						</div>
 					</div>
 	
@@ -121,6 +113,30 @@
 	
 			</div>
 		</main>
+
+		<!-- Modal -->
+		<div class="modal fade" id="replyUpdateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+					<h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<form method="post" id="replyUpdateForm">
+							<textarea class="form-control" name="commentContents" id="replyUpdateContents" rows="3"></textarea>
+							<input type="hidden" id="replyUpdateNum" name="commentNum" value="${commentNum}">
+							<input type="hidden" id="replyWriter" name="userName" value="">
+						</form>
+					</div>
+					<div class="modal-footer">
+					<button type="button" id="replyCloseButton" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					<button type="button" id="replyUpdateButton" class="btn btn-primary">Update</button>
+				</div>
+			</div>
+			</div>
+		</div>
+
 		<!-- 사용전 경로를 꼭 수정하세요  -->
 		<!-- Footer  -->
 		<c:import url="../temps/footer.jsp"></c:import>
@@ -129,4 +145,3 @@
 		<script src="../../../resources/js/productDetail.js"></script>
 	</body>
 </html>
-

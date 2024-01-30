@@ -32,4 +32,12 @@ public class ReplyService {
 		map.put("replyDTO", replyDTO);
 		return replyDAO.getList(map);
 	}
+	
+	public int setUpdate(ReplyDTO replyDTO) throws Exception{
+		return replyDAO.setUpdate(replyDTO);
+	}
+	
+	public int setDelete(ReplyDTO replyDTO) throws Exception{
+		return replyDAO.setDelete(replyDTO);
+	}
 }

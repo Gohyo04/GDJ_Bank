@@ -34,6 +34,21 @@ public class QnaCotroller {
 		return "qna";
 	}
 	
+	@GetMapping("add")
+	public String setAdd() throws Exception{
+		return "board/add";
+	}
+	
+	@PostMapping("add")
+	public String setAdd(BoardDTO boardDTO, MultipartFile [] attachs, HttpSession session) throws Exception{
+		MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
+		boardDTO.setNoticeWriter(memberDTO.getUserName());
+		
+		int result = qnaService.setAdd(boardDTO, attachs);
+		
+		return "redirect:./list";
+	}
+	
 	@GetMapping("reply")
 	public String setReply(BoardDTO boardDTO, Model model) throws Exception{
 		model.addAttribute("list", boardDTO);
@@ -66,20 +81,7 @@ public class QnaCotroller {
 		return "board/detail";
 	}
 	
-	@GetMapping("add")
-	public String setAdd() throws Exception{
-		return "board/add";
-	}
-	
-	@PostMapping("add")
-	public String setAdd(BoardDTO boardDTO, MultipartFile [] attachs, HttpSession session) throws Exception{
-		MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
-		boardDTO.setNoticeWriter(memberDTO.getUserName());
-		
-		int result = qnaService.setAdd(boardDTO, attachs);
-		
-		return "redirect:./list";
-	}
+
 	
 	@PostMapping("delete")
 	public String setDelete(QnaDTO boardDTO) throws Exception{
