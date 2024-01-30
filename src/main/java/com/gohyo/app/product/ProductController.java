@@ -1,5 +1,7 @@
 package com.gohyo.app.product;
 
+import java.sql.SQLClientInfoException;
+import java.sql.SQLDataException;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -7,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -36,9 +39,27 @@ public class ProductController{
 		return "product/detail";
 	}
 	
+	// (list) 예외 처리 메서드
+	@ExceptionHandler(NullPointerException.class)
+	public String nullHandler() {
+		return "errors/error";
+	}
+	
+	// (list) 예외 처리 메서드
+		@ExceptionHandler(Exception.class)
+		public String handler() {
+			return "errors/error";
+		}
+	
 	@RequestMapping(value="list", method = RequestMethod.GET)
 	public String getList(Model model, Pager pager) throws Exception{
 		List<ProductDTO> ar = productService.getList(pager);
+		
+		if(ar.size() % 2 == 0) {
+			throw new NullPointerException();
+		}else if(ar.size() % 2 == 1){
+			throw new SQLDataException();
+		}
 		
 		model.addAttribute("list",ar);
 		model.addAttribute("pager",pager);

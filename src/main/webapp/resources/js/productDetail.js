@@ -5,8 +5,8 @@ const dele = document.getElementById("del");
 const create = document.getElementById("create");
 const more = document.getElementById("more")
 const replyList = document.getElementById("replyList");
-const replyAdd = document.getElementById("replyAdd")
-
+const replyAdd = document.getElementById("replyAdd");
+console.log(replyList);
 // modal update button
 const replyUpdateButton = document.getElementById("replyUpdateButton");
 
@@ -170,6 +170,7 @@ function makeList(r){
 
 // 댓글등록
 replyAdd.addEventListener("click",()=>{
+    console.log('add');
     const replyForm = document.getElementById("replyForm");
     const form = new FormData(replyForm);
 

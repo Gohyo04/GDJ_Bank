@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.gohyo.app.errors.MemberLoginException;
 import com.gohyo.app.util.FileManager;
 
 @Service
@@ -44,10 +45,17 @@ public class MemberService {
 				memberDTO.setRoleDTOs(m.getRoleDTOs());
 				return memberDTO;
 			}else {
+				// pw가 틀림
 				m = null;
+				throw new MemberLoginException("PW 확인");
 			}
+		}else {
+			// id가 틀림
+			throw new MemberLoginException("ID 확인");
 		}
-		return m;
+		
+//		return m;
+		
 	}
 	
 	public int setUpdate(MemberDTO memberDTO) throws Exception{
