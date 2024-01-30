@@ -1,6 +1,8 @@
 package com.gohyo.app.member;
 
-import java.io.File;
+import java.util.List;
+
+import com.gohyo.app.member.role.RoleDTO;
 
 public class MemberDTO {
 	private String userName;
@@ -9,8 +11,18 @@ public class MemberDTO {
 	private String phone;
 	private String email;
 	private String address;
+	
 	private AvatarDTO avatarDTO;
 	
+	// 멤버 한명당 권한이 1개이상
+	private List<RoleDTO> roleDTOs;
+	
+	public List<RoleDTO> getRoleDTOs() {
+		return roleDTOs;
+	}
+	public void setRoleDTOs(List<RoleDTO> roleDTOs) {
+		this.roleDTOs = roleDTOs;
+	}
 	public AvatarDTO getAvatarDTO() {
 		return avatarDTO;
 	}

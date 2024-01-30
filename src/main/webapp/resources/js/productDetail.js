@@ -5,6 +5,7 @@ const dele = document.getElementById("del");
 const create = document.getElementById("create");
 const more = document.getElementById("more")
 const replyList = document.getElementById("replyList");
+const replyAdd = document.getElementById("replyAdd")
 
 // modal update button
 const replyUpdateButton = document.getElementById("replyUpdateButton");
@@ -168,7 +169,7 @@ function makeList(r){
 }
 
 // 댓글등록
-replyBtn.addEventListener("click",()=>{
+replyAdd.addEventListener("click",()=>{
     const replyForm = document.getElementById("replyForm");
     const form = new FormData(replyForm);
 
@@ -176,7 +177,7 @@ replyBtn.addEventListener("click",()=>{
         method:"POST",
         body:form,
     })
-    .then(res => res.text())
+    .then(res => res.json())
     .then(r => {
         replyList.innerHTML = "";
         

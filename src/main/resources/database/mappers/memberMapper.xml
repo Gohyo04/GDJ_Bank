@@ -10,6 +10,11 @@
   		VALUES (#{userName}, #{password}, #{name}, #{email}, #{phone}, #{address})
   	</insert>
   	
+  	<insert id="setMemberRole" parameterType="MemberDTO">
+  		INSERT INTO MEMBER
+  		VALUES (#{userName}, (SELECT ROLENUM FROM ROLE WHERE ROLENAME = 'ROLE_MEMBER'))
+  	</insert>
+  	
   	<insert id="addFile" parameterType="AvatarDTO">
   		INSERT INTO AVATAR (FILENUM, USERNAME, FILENAME, ORINAME)
   		VALUES(BOARD_SEQ.NEXTVAL,#{userName} ,#{fileName} ,#{oriName})
@@ -17,9 +22,16 @@
   	
   	<select id="getDetail" parameterType="MemberDTO" resultMap="getDetailResult">
   		SELECT * 
-  		FROM MEMBER
-  		OUTER LEFT JOIN AVATAR  
-  		USING(USERNAME)
+  			FROM MEMBER M
+  			LEFT JOIN 
+  			AVATAR A  
+  			USING(USERNAME)
+  			INNER JOIN
+  			MEMBERROLE MR
+  			USING(USERNAME)
+  			INNER JOIN
+  			ROLE R
+  			USING(ROLENUM)
   		WHERE USERNAME = #{userName}
   	</select>
   	
@@ -36,6 +48,12 @@
   			<result column="FILENAME" property="fileName"/>
   			<result column="ORINAME" property="oriName"/>
   		</association>
+  		
+  		<collection property="roleDTOs" javaType="List" ofType="RoleDTO">
+  			<id column="ROLENUM" property="roleNum"/>
+  			<result column="ROLENAME" property="roleName"/>
+  		</collection>
+  		
   	</resultMap>
   	
   	<update id="setUpdate" parameterType="MemberDTO">

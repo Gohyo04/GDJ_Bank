@@ -126,7 +126,7 @@
 						<form method="post" id="replyUpdateForm">
 							<textarea class="form-control" name="commentContents" id="replyUpdateContents" rows="3"></textarea>
 							<input type="hidden" id="replyUpdateNum" name="commentNum" value="${commentNum}">
-							<input type="hiddon" id="replyWriter" name="userName" value="${}">
+							<input type="hidden" id="replyWriter" name="userName" value="">
 						</form>
 					</div>
 					<div class="modal-footer">
