@@ -113,6 +113,30 @@
 	
 			</div>
 		</main>
+
+		<!-- Modal -->
+		<div class="modal fade" id="replyUpdateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+					<h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<form method="post" id="replyUpdateForm">
+							<textarea class="form-control" name="commentContents" id="replyUpdateContents" rows="3"></textarea>
+							<input type="hidden" id="replyUpdateNum" name="commentNum" value="${commentNum}">
+							<input type="hiddon" id="replyWriter" name="userName" value="${}">
+						</form>
+					</div>
+					<div class="modal-footer">
+					<button type="button" id="replyCloseButton" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					<button type="button" id="replyUpdateButton" class="btn btn-primary">Update</button>
+				</div>
+			</div>
+			</div>
+		</div>
+
 		<!-- 사용전 경로를 꼭 수정하세요  -->
 		<!-- Footer  -->
 		<c:import url="../temps/footer.jsp"></c:import>
@@ -121,4 +145,3 @@
 		<script src="../../../resources/js/productDetail.js"></script>
 	</body>
 </html>
-

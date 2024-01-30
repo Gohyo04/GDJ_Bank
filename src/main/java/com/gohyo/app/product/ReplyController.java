@@ -7,17 +7,17 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.gohyo.app.member.MemberDTO;
 import com.gohyo.app.util.Pager;
 
-@Controller
+@RestController
 @RequestMapping("/reply/*")
 public class ReplyController {
 	
@@ -53,6 +53,14 @@ public class ReplyController {
 		map.put("pager", pager);
 		
 		return map;
+	}
+	
+	@PostMapping("update")
+	@ResponseBody
+	public int setupdate(ReplyDTO replyDTO) throws Exception{
+		int result = replyService.setUpdate(replyDTO);
+		
+		return result;
 	}
 	
 	@PostMapping("delete")

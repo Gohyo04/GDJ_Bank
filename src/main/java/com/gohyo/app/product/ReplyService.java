@@ -33,6 +33,10 @@ public class ReplyService {
 		return replyDAO.getList(map);
 	}
 	
+	public int setUpdate(ReplyDTO replyDTO) throws Exception{
+		return replyDAO.setUpdate(replyDTO);
+	}
+	
 	public int setDelete(ReplyDTO replyDTO) throws Exception{
 		return replyDAO.setDelete(replyDTO);
 	}

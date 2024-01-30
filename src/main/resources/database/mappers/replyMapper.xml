@@ -26,6 +26,10 @@
 		)WHERE RN BETWEEN #{pager.startRow} AND #{pager.lastRow}
 	</select>
 	
+	<update id="setUpdate">
+		UPDATE REPLY SET (COMMENTCONTENTS = #{commentContents}) WHERE COMMENTNUM=#{commentNum}
+	</update>
+	
 	<delete id="setDelete" parameterType="ReplyDTO">
 		DELETE REPLY WHERE COMMNETNUM = #{commentNum}
 	</delete>

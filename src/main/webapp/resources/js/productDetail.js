@@ -6,10 +6,65 @@ const create = document.getElementById("create");
 const more = document.getElementById("more")
 const replyList = document.getElementById("replyList");
 
+// modal update button
+const replyUpdateButton = document.getElementById("replyUpdateButton");
 
 getReplyList(1,up.getAttribute("data-product-num"));
 
-// 삭제 버튼
+// 모달 수정 버튼
+replyUpdateButton.addEventListener("click",function(){
+    // alert("update");
+
+    let form = document.getElementById("replyUpdateForm");
+    let formData = new FormData(form);
+
+    fetch("../reply/update",
+    {
+        method:"post",
+        body:formData
+    }
+    ).then(r => r.json()
+    ).then(r => 
+        {
+            alert(r);
+
+            if(r > 0){
+                // td의 id 가져와서 Contents 변경
+                let i = "replyContents"+document.getElementById("replyUpdateNum").value;
+                i = document.getElementById(i);
+                i.innerHTML = document.getElementById("replyUpdateContents").value;
+            }else{
+                alert("수정 실패");
+            }
+            // Modal Close 버튼을 강제로 클릭
+            form.reset();
+            //replyUpdateForm.reset();
+            document.getElementById("replyCloseButton").click();
+        }
+    );
+})
+
+// 수정 버튼 (js 위임)
+replyList.addEventListener("click", (e)=>{
+    if(e.target.classList.contains("update")){
+        // modal textarea
+        const replyUpdateContents = document.getElementById("replyUpdateContents");
+
+        // td의 id 생성
+        let i = 'replyContents'+e.target.getAttribute("data-replyNum");
+        
+        // 해당아이디에 td 가져오기
+        const r = document.getElementById(i);
+        // td 다음 형제의 내용 (userName)
+        document.getElementById("replyWriter").value = r.nextSibling.innerHTML();
+        // innerText / innerHTML 
+        replyUpdateContents.value = r.innerHTML.trim();
+        document.getElementById("replyUpdateNum").value = e.target.getAttribute("data-replyNum");
+    }
+})
+
+
+// 삭제 버튼 (jquery 위임)
 $("#replyList").on("click", ".del", function(){
     let n = $(this).attr("data-replyNum");
 
@@ -69,6 +124,7 @@ function makeList(r){
         let tr = document.createElement("tr");
         
         let td = document.createElement("td");
+        td.setAttribute("id","replyContents"+r[i].replyNum);
         td.innerHTML = r[i].replyContents;
         tr.append(td);
         
@@ -99,6 +155,10 @@ function makeList(r){
             b.innerHTML="수정";
             b.setAttribute("class","update");
             b.setAttribute("data-replyNum", r[i].replyNum);
+
+            //data-bs-toggle="modal" data-bs-target="#exampleModal"
+            b.setAttribute("data-bs-toggle","modal");
+            b.setAttribute("data-bs-target","#replyUpdateModal")
             td.append(b);
             tr.append(td);
 
