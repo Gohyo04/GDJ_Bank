@@ -1,6 +1,7 @@
 package com.gohyo.app.wish;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -42,8 +43,8 @@ public class WishController {
 	@PostMapping("delete")
 	public String deleteWish(Model model,Long[] productNum, HttpSession session) throws Exception{
 		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
-		int result = wishService.deleteWish(productNum, memberDTO);
-		model.addAttribute("result", result);
-		return "commons/ajaxResult";
+		Map<String, Object> result = wishService.deleteWish(productNum, memberDTO);
+		model.addAttribute("result", result.get("list"));
+		return "wishlist/add";
 	}
 }

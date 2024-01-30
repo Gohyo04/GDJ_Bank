@@ -6,8 +6,14 @@
   
   <mapper namespace="com.gohyo.app.product.ProductDAO">
   
+  <!-- file join, reply join -->
   	<select id="getDetail" parameterType="ProductDTO" resultType="ProductDTO">
-  		SELECT * FROM PRODUCT WHERE PRODUCTNUM = #{productNum}
+  		SELECT * 
+  		FROM PRODUCT P
+	  		LEFT OUTER JOIN
+	  		PRODUCTFILES PF 
+	  		ON P.PRODUCTNUM = PF.PRODUCTNUM
+  		WHERE P.PRODUCTNUM = #{productNum}
   	</select>
   
   	<select id="getList" resultType="ProductDTO">

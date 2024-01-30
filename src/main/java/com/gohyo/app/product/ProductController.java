@@ -2,6 +2,8 @@ package com.gohyo.app.product;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.gohyo.app.member.MemberDTO;
 import com.gohyo.app.util.Pager;
 
 @Controller
@@ -17,13 +20,26 @@ public class ProductController{
 	
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private ReplyService replyService;
 
 	
 	@RequestMapping(value="detail", method = RequestMethod.GET)
-	public String getDetail(Model model, ProductDTO productDTO) throws Exception{
-		productDTO = productService.getDetail(productDTO);
+	public String getDetail(Model model, ProductDTO productDTO, ReplyDTO replyDTO, HttpSession session) throws Exception{
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
+		productDTO = productService.getDetail(productDTO,replyDTO);
 		
 		model.addAttribute("dto", productDTO);
+		
+		// 처음 가지고 올때만 댓글 목록도 조회
+		//ReplyDTO replyDTO = new ReplyDTO();
+		Pager pager = new Pager();
+		replyService.getList(pager, replyDTO);
+		List<ReplyDTO> replyList = replyService.getList(pager, replyDTO);
+		
+		model.addAttribute("pager",pager);
+		model.addAttribute("replyList", replyList);
 		
 		return "product/detail";
 	}
@@ -58,8 +74,8 @@ public class ProductController{
 	}
 	
 	@RequestMapping(value="update", method = RequestMethod.GET)
-	public String update(Model model, ProductDTO productDTO) throws Exception{
-		productDTO = productService.getDetail(productDTO);
+	public String update(Model model, ProductDTO productDTO, ReplyDTO replyDTO) throws Exception{
+		productDTO = productService.getDetail(productDTO,replyDTO);
 		model.addAttribute("dto",productDTO);
 		
 		return "product/update";

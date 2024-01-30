@@ -29,11 +29,12 @@ public class WishService {
 		return wishDAO.getWishlist(memberDTO);
 	}
 	
-	public int deleteWish(Long[] productNum, MemberDTO memberDTO) {
+	public Map<String, Object> deleteWish(Long[] productNum, MemberDTO memberDTO) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("nums", productNum);
 		map.put("member", memberDTO);
-		
-		return wishDAO.deleteWish(map);
+		wishDAO.deleteWish(map);
+		map.put("list", wishDAO.getWishlist(memberDTO));
+		return map;
 	}
 }

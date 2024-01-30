@@ -1,6 +1,8 @@
 package com.gohyo.app.product;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,8 +15,12 @@ public class ProductService {
 	@Autowired
 	private ProductDAO productDAO;
 	
+	@Autowired
+	private ReplyDAO replyDAO;
 	//detail
-	public ProductDTO getDetail(ProductDTO productDTO) throws Exception{
+	public ProductDTO getDetail(ProductDTO productDTO, ReplyDTO replyDTO) throws Exception{
+		Map<String, Object> map = new HashMap<String, Object>();
+//		map.put("replylist", replyDAO.getList(pager,replyDTO));
 		return productDTO = productDAO.getDetail(productDTO); 
 	}
 	
